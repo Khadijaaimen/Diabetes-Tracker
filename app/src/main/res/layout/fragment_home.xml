@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@drawable/bg"
+    tools:context=".HomeFragment"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <Button
+        android:id="@+id/sugar"
+        android:layout_width="150dp"
+        android:layout_height="200dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/sugar" />
+
+    <Button
+        android:id="@+id/med"
+        android:layout_width="145dp"
+        android:layout_height="198dp"
+        android:layout_marginLeft="190dp"
+        android:layout_marginTop="32dp"
+        android:background="@drawable/med" />
+
+    <Button
+        android:id="@+id/weight"
+        android:layout_width="150dp"
+        android:layout_height="198dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="270dp"
+        android:background="@drawable/weight" />
+
+    <Button
+        android:id="@+id/stat"
+        android:layout_width="145dp"
+        android:layout_height="198dp"
+        android:layout_marginLeft="190dp"
+        android:layout_marginTop="270dp"
+        android:background="@drawable/stat" />
+
+
+</RelativeLayout>

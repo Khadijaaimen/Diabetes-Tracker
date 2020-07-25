@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="20dp"
+    android:background="@drawable/bg"
+    tools:context=".EditProfile">
+
+    <ImageView
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
+        android:layout_gravity="center"
+        android:src="@drawable/pics"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            style="@style/s4"
+            android:layout_height="wrap_content"
+            android:text="Name: " />
+
+        <EditText
+            android:id="@+id/e1"
+            style="@style/s6"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Enter Name..."
+            android:inputType="textCapWords" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            style="@style/s4"
+            android:layout_height="wrap_content"
+            android:text="Date of Birth: " />
+
+        <EditText
+            android:hint="dd/mm/yy (click twice)"
+            style="@style/s6"
+            android:id="@+id/e2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_marginTop="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            style="@style/s4"
+            android:layout_height="wrap_content"
+            android:text="Gender: " />
+
+        <RadioGroup
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/Group"
+            >
+
+            <RadioButton
+                android:onClick="pickGender"
+                android:layout_marginTop="5dp"
+                android:layout_marginRight="10dp"
+                android:textColor="#FF9800"
+                android:id="@+id/Male"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Male"
+                android:checked="false"
+                android:textSize="18dp" />
+
+            <RadioButton
+                android:onClick="pickGender"
+                android:id="@+id/Female"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:checked="false"
+                android:text="Female"
+                android:textColor="#FF9800"
+                android:textSize="18dp" />
+
+            <TextView
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="8dp"
+                android:id="@+id/tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </RadioGroup>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            style="@style/s4"
+            android:layout_height="wrap_content"
+            android:text="Password: " />
+
+        <EditText
+            android:inputType="textCapWords|textPassword"
+            android:id="@+id/e3"
+            android:hint="Enter Password.."
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/s6"/>
+    </LinearLayout>
+
+    <Button
+        android:onClick="update"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="update"
+        android:textSize="15dp"
+        android:layout_marginTop="70dp"
+        android:layout_marginRight="55dp"
+        android:layout_marginLeft="55dp"
+        android:textColor="@android:color/white"
+        android:background="@drawable/stroke"
+        android:padding="15dp"
+        />
+
+</LinearLayout>

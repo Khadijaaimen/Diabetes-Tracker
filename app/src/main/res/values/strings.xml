@@ -1,0 +1,63 @@
+<resources>
+    <string name="app_name">Diabetes Tracker</string>
+    <string name="title_activity_tabs">Diabetes Tracker</string>
+    <string name="tab_text_1">HOME</string>
+    <string name="tab_text_2">MY PROFILE</string>
+
+    <!--Sugar spinner Messages-->
+
+    <string-array name="list">
+        <item>Fasting</item>
+        <item>After Breakfast</item>
+        <item>Before Lunch</item>
+        <item>After Lunch</item>
+        <item>Before Dinner</item>
+        <item>After Dinner</item>
+        <item>Random</item>
+        <item>Other</item>
+    </string-array>
+
+    <!--Medication spinner Messages-->
+
+    <string-array name="unit">
+        <item>mg</item>
+        <item>mL</item>
+        <item>Tablet</item>
+    </string-array>
+
+
+    <!--Reminder spinner Messages-->
+    <string-array name="reminder">
+        <item>Check Blood Sugar</item>
+        <item>Check Weight</item>
+        <item>Take Medicine</item>
+    </string-array>
+
+
+    <!--Error Messages-->
+    <string name="error_name1">Please Enter a Valid Name</string>
+    <string name="error_name2">Name Required</string>
+
+    <string name="error_email1">Invalid Format</string>
+    <string name="error_email2">Email Required</string>
+
+    <string name="error_dob1">DOB Required</string>
+
+    <string name="error_gender1">Gender Required</string>
+
+    <string name="error_password1">Spaces/Special Characters not allowed</string>
+    <string name="error_password2">Should contain more than 5 characters</string>
+    <string name="error_password3">Password Required</string>
+
+    <string name="error_medication">Please enter a valid format</string>
+
+    <string name="error_dosage2">Invalid Format</string>
+
+    <string name="error_date2">Invalid Format</string>
+
+    <string name="error_time2">Invalid Format</string>
+
+    <string name="error_concentration">Invalid Format</string>
+
+    <string name="error_weight">Invalid Format</string>
+</resources>

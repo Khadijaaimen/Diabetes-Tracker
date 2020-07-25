@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GridLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:columnCount="2"
+    android:rowCount="3">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_columnSpan="2"
+        android:background="#FF9800">
+
+        <TextView
+            android:id="@+id/date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginRight="10dp"
+            android:background="#FF9800"
+            android:fontFamily="sans-serif-light"
+            android:paddingLeft="50dp"
+            android:textColor="@color/cardview_light_background"
+            android:textStyle="bold"></TextView>
+
+        <TextView
+            android:id="@+id/time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="#FF9800"
+            android:fontFamily="sans-serif-light"
+            android:textColor="@color/cardview_light_background"
+            android:textStyle="bold"></TextView>
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="250dp"
+        android:fontFamily="sans-serif-light"
+        android:layout_rowSpan="2"
+        android:id="@+id/measured"
+        android:layout_gravity="center"
+        android:textColor="#E33C4C"
+        android:textStyle="bold|italic"></TextView>
+    <TextView
+        android:fontFamily="sans-serif-light"
+        android:layout_gravity="center"
+        android:id="@+id/concent"
+        android:textColor="#0A0909"
+        android:textStyle="bold"></TextView>
+
+    <TextView
+        android:id="@+id/unit"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="mmol/L"
+        android:textColor="#040404"
+        android:textStyle="bold"></TextView>
+
+
+
+</GridLayout>

@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/scroll"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    android:stackFromBottom="true"
+    tools:context=".Signup"
+    android:transcriptMode="alwaysScroll" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".Signup"
+        android:orientation="vertical"
+        android:scrollbars="vertical"
+        android:background="@drawable/bg2">
+
+        <ImageView
+            android:layout_marginTop="30dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/logo"
+            android:layout_gravity="center">
+
+        </ImageView>
+
+        <ImageView
+            android:layout_marginBottom="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:src="@drawable/signup" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                style="@style/s1"
+                android:text="Name: "
+                android:layout_height="wrap_content"/>
+
+            <EditText
+                android:inputType="textCapWords"
+                android:id="@+id/Name"
+                android:hint="e.g: John Doe"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/s2"/>
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                style="@style/s1"
+                android:text="Email: "
+                android:layout_height="wrap_content"/>
+
+            <EditText
+                android:id="@+id/email"
+                android:hint="someone@example.com"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/s2"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                style="@style/s1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Date of Birth: " />
+
+            <EditText
+                style="@style/s2"
+                android:id="@+id/DOB"
+                android:hint="dd/mm/yy (click twice)"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_marginTop="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                style="@style/s1"
+                android:layout_height="wrap_content"
+                android:text="Gender: " />
+
+            <RadioGroup
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/radio"
+                >
+
+                <RadioButton
+                    android:onClick="pickGender"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginRight="10dp"
+                    android:textColor="#F6C67E"
+                    android:id="@+id/male"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Male"
+                    android:checked="false"
+                    android:textSize="18dp" />
+
+                <RadioButton
+                    android:onClick="pickGender"
+                    android:layout_marginTop="5dp"
+                    android:textColor="#F6C67E"
+                    android:id="@+id/female"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Female"
+                    android:checked="false"
+                    android:textSize="18dp" />
+            </RadioGroup>
+            <TextView
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="30dp"
+                android:id="@+id/err"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                style="@style/s1"
+                android:layout_height="wrap_content"
+                android:text="Password: " />
+
+            <EditText
+                android:inputType="textCapWords|textPassword"
+                android:id="@+id/password"
+                android:hint="e.g: abcd1234"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/s2"/>
+        </LinearLayout>
+        <Button
+            android:id="@+id/sign"
+            android:onClick="submit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="SIGN UP"
+            style="@style/s3"
+            />
+
+        <TextView
+            android:textSize="15dp"
+            android:onClick="account"
+            android:textColor="#F6C67E"
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Already have an account? Click here."/>
+    </LinearLayout>
+
+
+</ScrollView>

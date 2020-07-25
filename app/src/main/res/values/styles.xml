@@ -1,0 +1,83 @@
+<resources>
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">#BE1E2D</item>
+        <item name="colorPrimaryDark">#BE1E2D</item>
+        <item name="colorAccent">#FF9800</item>
+    </style>
+
+    <style name="s1">
+        <item name="android:layout_width">90dp</item>
+        <item name="android:fontFamily">sans-serif-light</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">18dp</item>
+        <item name="android:layout_marginLeft">20dp</item>
+        <item name="android:layout_marginTop">5dp</item>
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+
+    <style name="s2">
+        <item name="android:layout_marginRight">20dp</item>
+        <item name="android:layout_marginTop">5dp</item>
+        <item name="android:fontFamily">sans-serif-light</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">18dp</item>
+        <item name="android:textColor">#F6C67E</item>
+    </style>
+
+    <style name="s3">
+        <item name="android:textSize">15dp</item>
+        <item name="android:layout_marginTop">10dp</item>
+        <item name="android:layout_marginBottom">10dp</item>
+        <item name="android:layout_marginRight">45dp</item>
+        <item name="android:layout_marginLeft">45dp</item>
+        <item name="android:background">@drawable/radius</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:padding">10dp</item>
+        <item name="android:textColor">#99181B</item>
+    </style>
+
+    <style name="AppTheme.DarkActionBar">
+        <item name="windowActionBar">true</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="s4">
+        <item name="android:layout_width">110dp</item>
+        <item name="android:fontFamily">sans-serif-light</item>
+        <item name="android:textStyle">bold|italic</item>
+        <item name="android:textSize">18dp</item>
+        <item name="android:layout_marginLeft">5dp</item>
+        <item name="android:textColor">@android:color/black</item>
+    </style>
+
+    <style name="s5">
+        <item name="android:layout_marginBottom">10dp</item>
+        <item name="android:layout_marginRight">20dp</item>
+        <item name="android:fontFamily">sans-serif-light</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">18dp</item>
+        <item name="android:textColor">#F6C67E</item>
+    </style>
+
+    <style name="s6">
+        <item name="android:fontFamily">sans-serif-light</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">18dp</item>
+        <item name="android:textColor">#FF9800</item>
+    </style>
+
+    <style name="s7">
+        <item name="android:layout_width">90dp</item>
+        <item name="android:fontFamily">sans-serif-light</item>
+        <item name="android:textStyle">bold|italic</item>
+        <item name="android:textSize">18dp</item>
+        <item name="android:layout_marginLeft">20dp</item>
+        <item name="android:textColor">@android:color/black</item>
+    </style>
+</resources>

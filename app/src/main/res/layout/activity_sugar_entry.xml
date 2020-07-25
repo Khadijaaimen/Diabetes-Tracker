@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg"
+    android:orientation="vertical"
+    tools:context=".SugarEntry">
+
+    <ImageView
+        android:layout_marginBottom="20dp"
+        android:layout_marginTop="30dp"
+        android:layout_gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/sugar_entry"/>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            style="@style/s7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="Sugar Concentration: " />
+
+        <EditText
+            android:id="@+id/cont"
+            style="@style/s6"
+            android:layout_width="315dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:hint="Enter Concentration..."
+            android:inputType="numberDecimal" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        >
+        <TextView
+            android:layout_marginTop="10dp"
+            android:layout_width="90dp"
+            android:layout_height="wrap_content"
+            android:text="Measured: "
+            style="@style/s7"
+            />
+        <LinearLayout
+            android:background="#C8FFFFFF"
+            android:layout_width="225dp"
+            android:layout_height="wrap_content">
+        <Spinner
+            style="@style/s6"
+            android:id="@+id/spinner1"
+            android:layout_width="225dp"
+            android:layout_height="wrap_content"
+            />
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        >
+        <TextView
+            android:layout_width="90dp"
+            android:layout_height="wrap_content"
+            android:text="Date: "
+            style="@style/s7"
+            />
+
+        <EditText
+            android:id="@+id/date"
+            style="@style/s6"
+            android:inputType="none"
+            android:layout_width="225dp"
+            android:layout_height="wrap_content"
+            android:hint="dd/mm/yy (click twice)" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        >
+        <TextView
+            android:layout_width="90dp"
+            android:layout_height="wrap_content"
+            android:text="Time: "
+            style="@style/s7"
+            />
+
+        <EditText
+            android:inputType="none"
+            android:id="@+id/time"
+            style="@style/s6"
+            android:layout_width="225dp"
+            android:layout_height="wrap_content"
+            android:hint="hh/mm (click twice)" />
+    </LinearLayout>
+
+    <Button
+        android:onClick="submitSugar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Submit"
+        android:textSize="15dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginRight="65dp"
+        android:layout_marginLeft="65dp"
+        android:layout_gravity="center"
+        android:textColor="@android:color/white"
+        android:background="@drawable/stroke"
+        android:padding="15dp"/>
+</LinearLayout>

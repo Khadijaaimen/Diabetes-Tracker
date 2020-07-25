@@ -1,0 +1,74 @@
+<html>
+<head>
+<title>Signup.java</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #ed864a;}
+.s1 { color: #ebebeb;}
+.s2 { color: #ed864a; font-weight: bold;}
+.s3 { color: #7ec3e6;}
+.s4 { color: #54b33e;}
+.s5 { color: #33ccff; font-weight: bold;}
+</style>
+</head>
+<body bgcolor="#131314">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+Signup.java</font>
+</center></td></tr></table>
+<pre><span class="s0">package </span><span class="s1">com.example.diabetestracker</span><span class="s2">;</span>
+
+<span class="s0">import </span><span class="s1">androidx.appcompat.app.AppCompatActivity</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">androidx.fragment.app.FragmentTransaction</span><span class="s2">;</span>
+
+<span class="s0">import </span><span class="s1">android.app.DatePickerDialog</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">android.content.Intent</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">android.os.Bundle</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">android.view.View</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">android.widget.DatePicker</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">android.widget.EditText</span><span class="s2">;</span>
+
+<span class="s0">import </span><span class="s1">com.google.android.material.tabs.TabLayout</span><span class="s2">;</span>
+
+<span class="s0">import </span><span class="s1">java.util.Calendar</span><span class="s2">;</span>
+
+<span class="s0">public class </span><span class="s1">Signup </span><span class="s0">extends </span><span class="s1">AppCompatActivity {</span>
+    <span class="s1">DatePickerDialog picker</span><span class="s2">;</span>
+    <span class="s1">EditText eText</span><span class="s2">;</span>
+
+    <span class="s1">@Override</span>
+    <span class="s0">protected void </span><span class="s1">onCreate(Bundle savedInstanceState) {</span>
+        <span class="s0">super</span><span class="s1">.onCreate(savedInstanceState)</span><span class="s2">;</span>
+        <span class="s1">getSupportActionBar().hide()</span><span class="s2">;</span>
+        <span class="s1">setContentView(R.layout.activity_signup)</span><span class="s2">;</span>
+
+        <span class="s1">eText=findViewById(R.id.dob)</span><span class="s2">;</span>
+        <span class="s1">eText.setOnClickListener(</span><span class="s0">new </span><span class="s1">View.OnClickListener() {</span>
+            <span class="s1">@Override</span>
+            <span class="s0">public void </span><span class="s1">onClick(View v) {</span>
+
+                <span class="s0">final </span><span class="s1">Calendar cldr = Calendar.getInstance()</span><span class="s2">;</span>
+                <span class="s0">int </span><span class="s1">day = cldr.get(Calendar.DAY_OF_MONTH)</span><span class="s2">;</span>
+                <span class="s0">int </span><span class="s1">month = cldr.get(Calendar.MONTH)</span><span class="s2">;</span>
+                <span class="s0">int </span><span class="s1">year = cldr.get(Calendar.YEAR)</span><span class="s2">;</span>
+                <span class="s3">// date picker dialog</span>
+                <span class="s1">picker = </span><span class="s0">new </span><span class="s1">DatePickerDialog(Signup.</span><span class="s0">this</span><span class="s2">,</span>
+                        <span class="s0">new </span><span class="s1">DatePickerDialog.OnDateSetListener() {</span>
+                            <span class="s1">@Override</span>
+                            <span class="s0">public void </span><span class="s1">onDateSet(DatePicker view</span><span class="s2">, </span><span class="s0">int </span><span class="s1">year</span><span class="s2">, </span><span class="s0">int </span><span class="s1">monthOfYear</span><span class="s2">, </span><span class="s0">int </span><span class="s1">dayOfMonth) {</span>
+                                <span class="s1">eText.setText(dayOfMonth + </span><span class="s4">&quot;/&quot; </span><span class="s1">+ (monthOfYear + </span><span class="s5">1</span><span class="s1">) + </span><span class="s4">&quot;/&quot; </span><span class="s1">+ year)</span><span class="s2">;</span>
+                            <span class="s1">}</span>
+                        <span class="s1">}</span><span class="s2">, </span><span class="s1">year</span><span class="s2">, </span><span class="s1">month</span><span class="s2">, </span><span class="s1">day)</span><span class="s2">;</span>
+                <span class="s1">picker.show()</span><span class="s2">;</span>
+            <span class="s1">}</span>
+        <span class="s1">})</span><span class="s2">;</span>
+
+    <span class="s1">}</span>
+    <span class="s0">public void </span><span class="s1">onClick(View v){</span>
+        <span class="s1">Intent i = </span><span class="s0">new </span><span class="s1">Intent(Signup.</span><span class="s0">this</span><span class="s2">, </span><span class="s1">Tabs.</span><span class="s0">class</span><span class="s1">)</span><span class="s2">;</span>
+        <span class="s1">startActivity(i)</span><span class="s2">;</span>
+    <span class="s1">}</span>
+<span class="s1">}</span></pre>
+</body>
+</html>

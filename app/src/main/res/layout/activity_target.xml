@@ -1,0 +1,665 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:transcriptMode="alwaysScroll"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    android:stackFromBottom="true"
+    tools:context=".TargetLevels">
+
+    <LinearLayout
+        android:paddingBottom="20dp"
+        android:padding="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:scrollbars="vertical"
+        android:background="@drawable/bg">
+
+        <ImageView
+            android:layout_marginTop="20dp"
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/target" />
+
+        <TextView
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:textColor="@android:color/black"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:inputType="textMultiLine"
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="The NICE recommended target blood glucose levels are stated below for adults with type 1 diabetes, type\n2 diabetes and children with type 1 diabetes." />
+
+        <TableLayout
+            android:background="#ffff"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TableRow android:background="#BE1E2D">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/cell_shape"
+                    android:padding="8dp"
+                    android:text="Target\nLevels\nby Type"
+                    android:textColor="@android:color/white"
+                    android:textSize="16dp"
+                    android:textStyle="bold" />
+
+                <TextView
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/cell_shape"
+                    android:padding="8dp"
+                    android:text="Upon\nWaking"
+                    android:textColor="@android:color/white"
+                    android:textSize="16dp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/cell_shape"
+                    android:padding="8dp"
+                    android:text="Before\nmeals\n(pre\nprandial)"
+                    android:textColor="@android:color/white"
+                    android:textSize="16dp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:background="@drawable/cell_shape"
+                    android:textSize="16dp"
+                    android:padding="8dp"
+                    android:textColor="@android:color/white"
+                    android:textStyle="bold"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="At least 90\nminutes after\nmeals (post\nprandial)" />
+            </TableRow>
+
+            <TableRow android:background="#46BE1E2D">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/cell_bg"
+                    android:padding="5dp"
+                    android:text="Non-\ndiabetic*	"
+                    android:textColor="@android:color/black"
+                    android:textSize="16dp"
+                    android:textStyle="bold" />
+
+                <TextView
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/cell_bg"
+                    android:padding="5dp"
+                    android:text=""
+                    android:textColor="@android:color/black"
+                    android:textSize="16dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/cell_bg"
+                    android:padding="5dp"
+                    android:text="4.0 to 5.9\nmmol/L"
+                    android:textColor="@android:color/black"
+                    android:textSize="16dp" />
+
+                <TextView
+                    android:background="@drawable/cell_bg"
+                    android:textSize="16dp"
+                    android:padding="5dp"
+                    android:textColor="@android:color/black"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="under 7.8\nmmol/L" />
+            </TableRow>
+
+            <TableRow android:background="#46BE1E2D">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/cell_bg"
+                    android:padding="5dp"
+                    android:text="Type 2\ndiabetes"
+                    android:textColor="@android:color/black"
+                    android:textSize="16dp"
+                    android:textStyle="bold" />
+
+                <TextView
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/cell_bg"
+                    android:padding="5dp"
+                    android:text=""
+                    android:textColor="@android:color/black"
+                    android:textSize="16dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/cell_bg"
+                    android:padding="5dp"
+                    android:text="4 to 7\nmmol/L"
+                    android:textColor="@android:color/black"
+                    android:textSize="16dp" />
+
+                <TextView
+                    android:background="@drawable/cell_bg"
+                    android:textSize="16dp"
+                    android:padding="5dp"
+                    android:textColor="@android:color/black"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="under 8.5\nmmol/L" />
+            </TableRow>
+
+            <TableRow android:background="#46BE1E2D">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/cell_bg"
+                    android:padding="5dp"
+                    android:text="Type 1\ndiabetes"
+                    android:textColor="@android:color/black"
+                    android:textSize="16dp"
+                    android:textStyle="bold" />
+
+                <TextView
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/cell_bg"
+                    android:padding="5dp"
+                    android:text="5 to 7\nmmol/L"
+                    android:textColor="@android:color/black"
+                    android:textSize="16dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/cell_bg"
+                    android:padding="5dp"
+                    android:text="4 to 7\nmmol/L"
+                    android:textColor="@android:color/black"
+                    android:textSize="16dp" />
+
+                <TextView
+                    android:background="@drawable/cell_bg"
+                    android:textSize="16dp"
+                    android:padding="5dp"
+                    android:textColor="@android:color/black"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="5 to 9 \nmmol/L" />
+            </TableRow>
+
+            <TableRow android:background="#46BE1E2D">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/cell_bg"
+                    android:padding="5dp"
+                    android:text="Children\nw/ type 1 \ndiabetes"
+                    android:textColor="@android:color/black"
+                    android:textSize="16dp"
+                    android:textStyle="bold" />
+
+                <TextView
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/cell_bg"
+                    android:padding="5dp"
+                    android:text="4 to 7\nmmol/L"
+                    android:textColor="@android:color/black"
+                    android:textSize="16dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/cell_bg"
+                    android:padding="5dp"
+                    android:text="4 to 7\nmmol/L"
+                    android:textColor="@android:color/black"
+                    android:textSize="16dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/cell_bg"
+                    android:padding="5dp"
+                    android:text="5 to 9 \nmmol/L"
+                    android:textColor="@android:color/black"
+                    android:textSize="16dp" />
+            </TableRow>
+
+        </TableLayout>
+
+        <TextView
+            android:textSize="18dp"
+            android:textStyle="bold"
+            android:fontFamily="sans-serif"
+            android:layout_marginTop="20dp"
+            android:textColor="#BE1E2D"
+            android:text="BLOOD SUGAR LEVELS IN DIAGNOSING DIABETES"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:paddingBottom="10dp"
+            android:paddingTop="5dp"
+            android:textColor="@android:color/black"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="The following table lays out criteria for diagnoses of diabetes and prediabetes." />
+
+        <TableLayout
+            android:background="#ffff"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TableRow android:background="#BE1E2D">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/cell_shape"
+                    android:padding="8dp"
+                    android:text="Plasma\nglucose\ntest"
+                    android:textColor="@android:color/white"
+                    android:textSize="16dp"
+                    android:textStyle="bold" />
+
+                <TextView
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/cell_shape"
+                    android:padding="8dp"
+                    android:text="Normal"
+                    android:textColor="@android:color/white"
+                    android:textSize="16dp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/cell_shape"
+                    android:padding="8dp"
+                    android:text="Pre-\ndiabetes"
+                    android:textColor="@android:color/white"
+                    android:textSize="16dp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/cell_shape"
+                    android:padding="8dp"
+                    android:text="Diabetes"
+                    android:textColor="@android:color/white"
+                    android:textSize="16dp"
+                    android:textStyle="bold" />
+            </TableRow>
+
+            <TableRow android:background="#46BE1E2D">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/cell_bg"
+                    android:padding="5dp"
+                    android:text="Random"
+                    android:textColor="@android:color/black"
+                    android:textSize="16dp"
+                    android:textStyle="bold" />
+
+                <TextView
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/cell_bg"
+                    android:padding="5dp"
+                    android:text="Below 11.1\nmmol/l \nBelow 200 \nmg/dl"
+                    android:textColor="@android:color/black"
+                    android:textSize="16dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/cell_bg"
+                    android:padding="5dp"
+                    android:text="N/A"
+                    android:textColor="@android:color/black"
+                    android:textSize="16dp" />
+
+                <TextView
+                    android:background="@drawable/cell_bg"
+                    android:textSize="16dp"
+                    android:padding="5dp"
+                    android:textColor="@android:color/black"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="11 mmol/l\nor more\n200 mg/dl\nor more" />
+            </TableRow>
+
+            <TableRow android:background="#46BE1E2D">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/cell_bg"
+                    android:padding="5dp"
+                    android:text="Fasting"
+                    android:textColor="@android:color/black"
+                    android:textSize="16dp"
+                    android:textStyle="bold" />
+
+                <TextView
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/cell_bg"
+                    android:padding="5dp"
+                    android:text="Below 5.5\nmmol/l \nBelow 100 \nmg/dl"
+                    android:textColor="@android:color/black"
+                    android:textSize="16dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="73dp"
+                    android:background="@drawable/cell_bg"
+                    android:padding="5dp"
+                    android:text="5.5 to 6.9\nmmol/l\n100 to 125\nmg/dl"
+                    android:textColor="@android:color/black"
+                    android:textSize="16dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/cell_bg"
+                    android:padding="5dp"
+                    android:text="7 mmol/l\nor more\n126 mg/dl\nor more"
+                    android:textColor="@android:color/black"
+                    android:textSize="16dp" />
+            </TableRow>
+
+            <TableRow android:background="#46BE1E2D">
+
+                <TextView
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/cell_bg"
+                    android:padding="5dp"
+                    android:text="2 hour\npost-\nprandial"
+                    android:textColor="@android:color/black"
+                    android:textSize="16dp"
+                    android:textStyle="bold" />
+
+                <TextView
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/cell_bg"
+                    android:padding="5dp"
+                    android:text="Below 7.8\nmmol/l \nBelow 140 \nmg/dl"
+                    android:textColor="@android:color/black"
+                    android:textSize="16dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/cell_bg"
+                    android:padding="5dp"
+                    android:text="7.8 to 11.0\nmmol/l\nl40 to 199\nmg/dl"
+                    android:textColor="@android:color/black"
+                    android:textSize="16dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/cell_bg"
+                    android:padding="5dp"
+                    android:text="11 mmol/l\nor more\n200 mg/dl\nor more"
+                    android:textColor="@android:color/black"
+                    android:textSize="16dp" />
+            </TableRow>
+        </TableLayout>
+
+        <TextView
+            android:textSize="18dp"
+            android:textStyle="bold"
+            android:fontFamily="sans-serif"
+            android:layout_marginTop="20dp"
+            android:textColor="#BE1E2D"
+            android:text="ACTIONS TO BE TAKEN"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:paddingBottom="10dp"
+            android:paddingTop="5dp"
+            android:textColor="@android:color/black"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="A person with very high or low fasting blood sugar levels should take the following actions:" />
+
+        <TableLayout
+            android:background="#ffff"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TableRow
+                android:background="#BE1E2D"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/cell_shape"
+                    android:padding="8dp"
+                    android:text="Fasting blood\nsugar level"
+                    android:textColor="@android:color/white"
+                    android:textSize="16dp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/cell_shape"
+                    android:padding="8dp"
+                    android:text="Risk level and suggested\naction"
+                    android:textColor="@android:color/white"
+                    android:textSize="16dp"
+                    android:textStyle="bold" />
+            </TableRow>
+
+            <TableRow android:background="#46BE1E2D">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/cell_bg"
+                    android:padding="5dp"
+                    android:text="50 mg/dl or\nunder"
+                    android:textColor="@android:color/black"
+                    android:textSize="16dp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/cell_bg"
+                    android:padding="5dp"
+                    android:text="Dangerously low: Seek\nmedical attention"
+                    android:textColor="@android:color/black"
+                    android:textSize="16dp" />
+
+            </TableRow>
+
+            <TableRow android:background="#46BE1E2D">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/cell_bg"
+                    android:padding="5dp"
+                    android:text="70–90 mg/dl"
+                    android:textColor="@android:color/black"
+                    android:textSize="16dp"
+                    android:textStyle="bold" />
+
+                <TextView
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/cell_bg"
+                    android:padding="5dp"
+                    android:text="Possibly too low: Consume\nsugar upon experiencing\nsymptoms of low blood\nsugar, or seek medical\nattention"
+                    android:textColor="@android:color/black"
+                    android:textSize="16dp" />
+
+            </TableRow>
+
+            <TableRow android:background="#46BE1E2D">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/cell_bg"
+                    android:padding="5dp"
+                    android:text="90–120 mg/dl"
+                    android:textColor="@android:color/black"
+                    android:textSize="16dp"
+                    android:textStyle="bold" />
+
+                <TextView
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/cell_bg"
+                    android:padding="5dp"
+                    android:text="Normal range"
+                    android:textColor="@android:color/black"
+                    android:textSize="16dp" />
+
+            </TableRow>
+
+            <TableRow android:background="#46BE1E2D">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/cell_bg"
+                    android:padding="5dp"
+                    android:text="120–160 mg/dl"
+                    android:textColor="@android:color/black"
+                    android:textSize="16dp"
+                    android:textStyle="bold" />
+
+                <TextView
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/cell_bg"
+                    android:padding="5dp"
+                    android:text="Medium: Seek medical\nattention"
+                    android:textColor="@android:color/black"
+                    android:textSize="16dp" />
+
+            </TableRow>
+
+            <TableRow android:background="#46BE1E2D">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/cell_bg"
+                    android:padding="5dp"
+                    android:text="160–240 mg/dl"
+                    android:textColor="@android:color/black"
+                    android:textSize="16dp"
+                    android:textStyle="bold" />
+
+                <TextView
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/cell_bg"
+                    android:padding="5dp"
+                    android:text="Too high: Work to bring\ndown blood sugar levels"
+                    android:textColor="@android:color/black"
+                    android:textSize="16dp" />
+
+            </TableRow>
+
+            <TableRow android:background="#46BE1E2D">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/cell_bg"
+                    android:padding="5dp"
+                    android:text="240–300 mg/dl"
+                    android:textColor="@android:color/black"
+                    android:textSize="16dp"
+                    android:textStyle="bold" />
+
+                <TextView
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/cell_bg"
+                    android:padding="5dp"
+                    android:text="Much too high: This could\nbe a sign of ineffective\nglucose management, so\nsee a doctor"
+                    android:textColor="@android:color/black"
+                    android:textSize="16dp" />
+
+            </TableRow>
+
+            <TableRow android:background="#46BE1E2D">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/cell_bg"
+                    android:padding="5dp"
+                    android:text="300 mg/dl or\nabove"
+                    android:textColor="@android:color/black"
+                    android:textSize="16dp"
+                    android:textStyle="bold" />
+
+                <TextView
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/cell_bg"
+                    android:padding="5dp"
+                    android:text="Very high: Seek immediate\nmedical attention"
+                    android:textColor="@android:color/black"
+                    android:textSize="16dp" />
+
+            </TableRow>
+
+        </TableLayout>
+
+    </LinearLayout>
+</ScrollView>

@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg"
+    android:orientation="vertical"
+    tools:context=".WeightEntry">
+
+    <ImageView
+        android:layout_marginBottom="20dp"
+        android:layout_marginTop="30dp"
+        android:layout_gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/weight_entry"/>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            style="@style/s7"
+            android:layout_width="65dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="Weight: " />
+
+        <EditText
+            android:id="@+id/weight"
+            style="@style/s6"
+            android:layout_width="215dp"
+            android:layout_height="wrap_content"
+            android:hint="Enter Weight..."
+            android:inputType="numberDecimal" />
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        >
+
+        <TextView
+            style="@style/s7"
+            android:layout_width="65dp"
+            android:layout_height="wrap_content"
+            android:text="Date: " />
+
+        <EditText
+            android:id="@+id/date"
+            style="@style/s6"
+            android:layout_width="215dp"
+            android:layout_height="55dp"
+            android:hint="dd/mm/yy (click twice)" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        >
+
+        <TextView
+            style="@style/s7"
+            android:layout_width="65dp"
+            android:layout_height="wrap_content"
+            android:text="Time: " />
+
+        <EditText
+            android:id="@+id/time"
+            style="@style/s6"
+            android:layout_width="215dp"
+            android:layout_height="wrap_content"
+            android:hint="hh/mm (click twice)" />
+    </LinearLayout>
+
+    <Button
+        android:onClick="submitWeight"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Submit"
+        android:textSize="15dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginRight="65dp"
+        android:layout_marginLeft="65dp"
+        android:layout_gravity="center"
+        android:textColor="@android:color/white"
+        android:background="@drawable/stroke"
+        android:padding="15dp"/>
+</LinearLayout>

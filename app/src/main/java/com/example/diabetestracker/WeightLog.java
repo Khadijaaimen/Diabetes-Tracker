@@ -100,34 +100,26 @@ public class WeightLog extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.dlt_weight:
-                final AlertDialog.Builder alert = new AlertDialog.Builder(WeightLog.this);
-                View v = getLayoutInflater().inflate(R.layout.activity_popup, null);
-
-                alert.setView(v);
-
-                final AlertDialog alertDialog = alert.create();
-                alertDialog.setCanceledOnTouchOutside(false);
-
-                TextView tv = v.findViewById(R.id.del);
-                tv.setText("Do you want to delete weight records?");
-
-                Button dlt = v.findViewById(R.id.dlt_records);
-                Button bcancel = v.findViewById(R.id.cancel);
-
-                dlt.setOnClickListener(new View.OnClickListener() {
+                builder=new AlertDialog.Builder(this);
+                builder.setMessage("Are you sure you want to delete?");
+                builder.setCancelable(false);
+                builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
-                    public void onClick(View v) {
-                        Toast.makeText(getApplicationContext(), "Records Deleted", Toast.LENGTH_SHORT).show();
-                        alertDialog.dismiss();
+                    public void onClick(DialogInterface dialog, int which) {
+                        boolean flag= db.deleteWeightRecord(clickedWeight.getEmail(),String.valueOf(clickedWeight.getId()));
+                        if(flag)
+                            Toast.makeText(getApplicationContext(),"Record Deleted ",Toast.LENGTH_SHORT).show();
+                        else
+                            Toast.makeText(getApplicationContext(),"Deletion Unsuccessful",Toast.LENGTH_SHORT).show();
                     }
                 });
-
-                bcancel.setOnClickListener(new View.OnClickListener() {
+                builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
                     @Override
-                    public void onClick(View v) {
-                        alertDialog.dismiss();
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
                     }
                 });
+                AlertDialog alertDialog=builder.create();
                 alertDialog.show();
                 return true;
 

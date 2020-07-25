@@ -24,6 +24,7 @@ import java.util.Calendar;
 
 
 public class SugarEntry extends AppCompatActivity implements AdapterView.OnItemSelectedListener{
+
     DatePickerDialog picker;
 
     Intent i;
@@ -51,10 +52,6 @@ public class SugarEntry extends AppCompatActivity implements AdapterView.OnItemS
 
         //for validation
         awesomeValidation = new AwesomeValidation(ValidationStyle.BASIC);
-
-        econ = findViewById(R.id.cont);
-        edate = findViewById(R.id.date);
-        etime = findViewById(R.id.time);
 
         getEditTexts();
         sugar = new Sugar();

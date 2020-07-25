@@ -30,7 +30,6 @@ public class WeightEntry extends AppCompatActivity{
     Preferences utils;
     Weight weight;
     DatabaseHelper dbHelper;
-    ArrayAdapter<CharSequence> adapter;
 
     //edit view
     EditText eweight, edate, etime;
@@ -160,17 +159,16 @@ public class WeightEntry extends AppCompatActivity{
             }
             else
             {
-                flag=dbHelper.addWeight(weight);
-
+                flag= dbHelper.addWeight(weight);
             }
             if(flag)
             {
+                Intent ii=new Intent(this, WeightLog.class);
                 Toast.makeText(this,"Record Entered",Toast.LENGTH_LONG).show();
-                Intent i2=new Intent(this,WeightLog.class);
-                startActivity(i2);
-                finish();
+                startActivity(ii);
             }
-
+            else
+                Toast.makeText(this,"Insertion Failed",Toast.LENGTH_LONG).show();
         }
     }
 

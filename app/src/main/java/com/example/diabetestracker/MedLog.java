@@ -123,17 +123,20 @@ public class MedLog extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.dlt_med:
-                builder = new AlertDialog.Builder(this);
+                builder=new AlertDialog.Builder(this);
                 builder.setMessage("Are you sure you want to delete?");
                 builder.setCancelable(false);
                 builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        boolean flag = db.deleteMedRecord(clickedMedicine.getEmail(), String.valueOf(clickedMedicine.getId()));
-                        if (flag)
+                        boolean flag= db.deleteMedRecord(clickedMedicine.getEmail(),String.valueOf(clickedMedicine.getId()));
+                        if(flag) {
                             Toast.makeText(getApplicationContext(), "Record Deleted ", Toast.LENGTH_SHORT).show();
+                            finish();
+                            startActivity(getIntent());
+                        }
                         else
-                            Toast.makeText(getApplicationContext(), "Deletion Unsuccessful", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(),"Deletion Unsuccessful",Toast.LENGTH_SHORT).show();
                     }
                 });
                 builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
@@ -142,9 +145,8 @@ public class MedLog extends AppCompatActivity {
                         dialog.cancel();
                     }
                 });
-                AlertDialog alertDialog = builder.create();
+                AlertDialog alertDialog=builder.create();
                 alertDialog.show();
-
                 return true;
 
             default:
@@ -179,17 +181,20 @@ public class MedLog extends AppCompatActivity {
                 return true;
 
             case R.id.delete:
-                builder = new AlertDialog.Builder(this);
+                builder=new AlertDialog.Builder(this);
                 builder.setMessage("Are you sure you want to delete?");
                 builder.setCancelable(false);
                 builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        boolean flag = db.deleteMedRecord(clickedMedicine.getEmail(), String.valueOf(clickedMedicine.getId()));
-                        if (flag)
+                        boolean flag= db.deleteMedRecord(clickedMedicine.getEmail(),String.valueOf(clickedMedicine.getId()));
+                        if(flag) {
                             Toast.makeText(getApplicationContext(), "Record Deleted ", Toast.LENGTH_SHORT).show();
+                            finish();
+                            startActivity(getIntent());
+                        }
                         else
-                            Toast.makeText(getApplicationContext(), "Deletion Unsuccessful", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(),"Deletion Unsuccessful",Toast.LENGTH_SHORT).show();
                     }
                 });
                 builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
@@ -198,7 +203,7 @@ public class MedLog extends AppCompatActivity {
                         dialog.cancel();
                     }
                 });
-                AlertDialog alertDialog = builder.create();
+                AlertDialog alertDialog=builder.create();
                 alertDialog.show();
             default:
                 return false;

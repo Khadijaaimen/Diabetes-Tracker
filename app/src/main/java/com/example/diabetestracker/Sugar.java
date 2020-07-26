@@ -23,9 +23,9 @@ public class Sugar {
     public void setMeasured(String measure){this.measured=measure;}
     //get measured
     public String getMeasured(){return measured;}
-    //set concentration
+    //set email
     public void setEmail(String emaill){this.email=emaill;}
-    //get concentration
+    //get email
     public String getEmail(){return email;}
 
 }

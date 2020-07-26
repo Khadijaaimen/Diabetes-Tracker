@@ -36,10 +36,10 @@
         <activity android:name=".Statistics" />
         <activity
             android:name=".WeightLog"
-            android:noHistory="true" />
+          />
         <activity
             android:name=".MedLog"
-            android:noHistory="true" />
+           />
         <activity android:name=".SugarWarning" />
         <activity android:name=".TargetLevels" />
         <activity
@@ -50,7 +50,7 @@
             android:noHistory="true" />
         <activity
             android:name=".WeightEntry"
-            android:noHistory="true" />
+           />
         <activity android:name=".Welcome" />
         <activity
             android:name=".Login"
@@ -60,7 +60,7 @@
             android:noHistory="true" />
         <activity
             android:name=".EditProfile"
-            android:noHistory="true" />
+             />
         <activity
             android:name=".Tabs"
             android:label="@string/title_activity_tabs"

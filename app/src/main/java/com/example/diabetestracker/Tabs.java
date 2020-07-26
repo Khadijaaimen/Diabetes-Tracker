@@ -131,7 +131,12 @@ public class Tabs extends AppCompatActivity {
                 break;
 
             case R.id.logout:
-                return true;
+                utils.saveEmail("",this);
+                if(utils.getEmail(this)==null||utils.getEmail(this)=="")
+                {
+                    Intent i2=new Intent(this,Welcome.class);
+                    startActivity(i2);
+                }
             default:
                 break;
         }

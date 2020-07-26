@@ -22,8 +22,6 @@ import static java.lang.Boolean.FALSE;
 
 public class Login extends AppCompatActivity {
 
-    SharedPreferences sp;
-    CheckBox checkBox;
     EditText eemail, epassword;
     String email, password;
     Preferences utils;
@@ -36,12 +34,6 @@ public class Login extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         getSupportActionBar().hide();
-
-        sp = getSharedPreferences("login", MODE_PRIVATE);
-        if (sp.getBoolean("logged", false)) {
-            Intent intent = new Intent(this, Tabs.class);
-            startActivity(intent);
-        }
 
         Intent i = getIntent();
         eemail = (EditText) findViewById(R.id.e1);
@@ -112,11 +104,11 @@ public class Login extends AppCompatActivity {
                         //after database validation
 
                         utils.saveEmail(user.getEmail(),this);
+
                         if(utils.getEmail(this)!=null || !utils.getEmail(this).equals(""))
                         {
                             Intent intent=new Intent(this, Tabs.class);
                             startActivity(intent);
-                            sp.edit().putBoolean("logged", true).apply();
                             finish();
                         }
                     }

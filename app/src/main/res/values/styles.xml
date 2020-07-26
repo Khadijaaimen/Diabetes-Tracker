@@ -62,7 +62,7 @@
         <item name="android:fontFamily">sans-serif-light</item>
         <item name="android:textStyle">bold</item>
         <item name="android:textSize">18dp</item>
-        <item name="android:textColor">#F6C67E</item>
+        <item name="android:textColor">#FDDAA6</item>
     </style>
 
     <style name="s6">

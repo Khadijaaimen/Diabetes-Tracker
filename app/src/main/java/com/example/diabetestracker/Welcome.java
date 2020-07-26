@@ -23,7 +23,13 @@ public class Welcome extends AppCompatActivity {
     }
 
     public void login(View v){
-        Intent i = new Intent(Welcome.this, Login.class);
-        startActivity(i);
+        if(Preferences.getEmail(this)!=null && !Preferences.getEmail(this).equals("")) {
+            Intent i3 = new Intent(this, Tabs.class);
+            startActivity(i3);
+            finish();
+        }else {
+            Intent i = new Intent(Welcome.this, Login.class);
+            startActivity(i);
+        }
     }
 }

@@ -52,14 +52,14 @@
             style="@style/s7"
             />
         <LinearLayout
+            android:layout_marginTop="10dp"
             android:background="#C8FFFFFF"
-            android:layout_width="225dp"
+            android:layout_width="200dp"
             android:layout_height="wrap_content">
         <Spinner
-            style="@style/s6"
             android:id="@+id/Measured"
-            android:layout_width="225dp"
-            android:layout_height="wrap_content"
+            android:layout_width="200dp"
+            android:layout_height="30dp"
             />
         </LinearLayout>
     </LinearLayout>

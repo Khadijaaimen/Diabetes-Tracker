@@ -38,11 +38,12 @@ import java.util.Locale;
 public class MedLog extends AppCompatActivity {
 
 //    private FusedLocationProviderClient fusedLocationClient;
-    ArrayList<Medicine> medEntries = new ArrayList<>();
+    ArrayList<Medicine> medEntries=new ArrayList<>();
     ListView listView;
     DatabaseHelper db;
     Preferences utils;
     Activity activity;
+    com.github.clans.fab.FloatingActionButton fab;
     AlertDialog.Builder builder;
     Medicine clickedMedicine;
 
@@ -56,20 +57,23 @@ public class MedLog extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_med_log);
 
-        activity = this;
-        clickedMedicine = new Medicine();
-        db = new DatabaseHelper(this);
-        utils = new Preferences();
-        new MedLog.GetMedData().execute();
-
+        Intent i=getIntent();
+        activity=this;
+        clickedMedicine=new Medicine();
+        db=new DatabaseHelper(this);
+        utils=new Preferences();
+        new GetMedData().execute();
+        fab=findViewById(R.id.medfab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i2=new Intent(MedLog.this,MedEntry.class);
+                startActivity(i2);
+            }
+        });
         listView = findViewById(R.id.med_entry);
     }
 
-    //intent to Medication Entry activity
-    public void medEntry(View v) {
-        Intent i = new Intent(this, MedEntry.class);
-        startActivity(i);
-    }
 
     public class GetMedData extends AsyncTask {
         @Override
@@ -92,7 +96,8 @@ public class MedLog extends AppCompatActivity {
             listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    Toast.makeText(getApplicationContext(), "You Selected " + medEntries.get(position).getMedication(), Toast.LENGTH_SHORT).show();
+
+                    Toast.makeText(getApplicationContext(),"You Selected "+medEntries.get(position).getId(), Toast.LENGTH_SHORT).show();
                     clickedMedicine.setId(medEntries.get(position).getId());
                     clickedMedicine.setMedication(medEntries.get(position).getMedication());
                     clickedMedicine.setUnit(medEntries.get(position).getUnit());
@@ -100,6 +105,7 @@ public class MedLog extends AppCompatActivity {
                     clickedMedicine.setDate(medEntries.get(position).getDate());
                     clickedMedicine.setTime(medEntries.get(position).getTime());
                     clickedMedicine.setEmail(medEntries.get(position).getEmail());
+//
                 }
             });
 
@@ -210,53 +216,4 @@ public class MedLog extends AppCompatActivity {
         }
     }
 
-    public void find(View v) {
-//        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
-//        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
-//                && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-//            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION},
-//                    locationRequestCode);
-//
-//        } else {
-//            GetLocation();
-//        }
-//    }
-//
-//    @Override
-//    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-//        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-//        switch (requestCode) {
-//            case 1000: {
-//                // If request is cancelled, the result arrays are empty.
-//                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-//                    GetLocation();
-//                    Intent i = new Intent(this, FindPharmacy.class);
-//                    startActivity(i);
-//                } else {
-//                    Toast.makeText(this, "Permission denied", Toast.LENGTH_SHORT).show();
-//                }
-//                break;
-//            }
-//
-//        }
-    }
-//
-//    public void GetLocation() {
-//        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-//            fusedLocationClient.getLastLocation()
-//                    .addOnSuccessListener(this, new OnSuccessListener<Location>() {
-//                        @Override
-//                        public void onSuccess(Location location) {
-//                            {
-//                                if (location != null) {
-//                                    wayLatitude = location.getLatitude();
-//                                    wayLongitude = location.getLongitude();
-//                                }
-//                            }
-//                        }
-//                    });
-//            return;
-//        }
-//
-//    }
 }

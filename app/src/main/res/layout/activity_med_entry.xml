@@ -80,7 +80,7 @@
             android:layout_height="wrap_content">
             <Spinner
                 style="@style/s6"
-                android:id="@+id/spinner1"
+                android:id="@+id/unit"
                 android:layout_width="225dp"
                 android:layout_height="wrap_content"
                 />

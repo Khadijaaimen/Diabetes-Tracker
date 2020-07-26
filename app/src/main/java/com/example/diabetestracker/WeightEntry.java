@@ -9,59 +9,43 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.Spinner;
+import android.widget.ImageView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.basgeekball.awesomevalidation.AwesomeValidation;
 import com.basgeekball.awesomevalidation.ValidationStyle;
+import com.example.diabetestracker.WeightLog;
 
 import java.util.Calendar;
 
-public class WeightEntry extends AppCompatActivity{
-
+public class WeightEntry extends AppCompatActivity {
     DatePickerDialog picker;
-
-    Intent i;
-    Preferences utils;
-    Weight weight;
-    DatabaseHelper dbHelper;
-
-    //edit view
-    EditText eweight, edate, etime;
-    String sweight, date, time;
-
-    //for validation
+    EditText eweight,edate,etime;
     private AwesomeValidation awesomeValidation;
-
+    Weight weight;
+    Preferences utils;
+    DatabaseHelper dbHelper;
+    Intent i;
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_weight_entry);
-
         i=getIntent();
-
-        //for validation
-        awesomeValidation = new AwesomeValidation(ValidationStyle.BASIC);
-
-        eweight = findViewById(R.id.weight);
-        edate = findViewById(R.id.date);
-        edate.setShowSoftInputOnFocus(false);
-
         getEditTexts();
         weight=new Weight();
         utils=new Preferences();
         dbHelper=new DatabaseHelper(this);
-        //if intent is coming from Edit button
         if(i.hasExtra("weight"))
         {
             updateWeight();
+            ImageView img=findViewById(R.id.image);
+            //img.setImageResource(R.drawable.weightentry);
         }
+        edate.setShowSoftInputOnFocus(false);
 
         //datepicker
         edate.setOnClickListener(new View.OnClickListener() {
@@ -84,8 +68,6 @@ public class WeightEntry extends AppCompatActivity{
             }
         });
 
-
-        etime = findViewById(R.id.time);
         etime.setShowSoftInputOnFocus(false);
 
         //timepicker
@@ -109,44 +91,36 @@ public class WeightEntry extends AppCompatActivity{
             }
         });
     }
-
-    private void getEditTexts(){
-        eweight = findViewById(R.id.weight);
-        edate = findViewById(R.id.date);
-        etime = findViewById(R.id.time);
+    private void getEditTexts()
+    {
+        eweight=findViewById(R.id.weight);
+        edate=findViewById(R.id.date);
+        etime=findViewById(R.id.time);
     }
 
-    private void setWeight(){
-        weight.setWeight(Integer.parseInt(eweight.getText().toString().trim()));
-        weight.setDate(edate.getText().toString().trim());
-        weight.setTime(etime.getText().toString().trim());
-        weight.setEmail(utils.getEmail(this));
+    private void validate()
+    {
+        awesomeValidation = new AwesomeValidation(ValidationStyle.BASIC);
+        if(String.valueOf(eweight.getText()).isEmpty())
+        {
+            awesomeValidation.addValidation(this,R.id.weight,"^[0-9]{1,3}[.]{0,1}[0-9]{0,2}$",R.string.error_weight1);
+        }
+        else
+        {
+            awesomeValidation.addValidation(this,R.id.weight,"^[0-9]{1,3}[.]{0,1}[0-9]{0,2}$",R.string.error_weight2);
+        }
+        if(String.valueOf(edate.getText()).isEmpty())
+        {
+            awesomeValidation.addValidation(this,R.id.date,"^[0-9]{1,2}[/][0-9]{1,2}[/][0-9]{4}$",R.string.error_date2);
+        }
+        if(String.valueOf(etime.getText()).isEmpty())
+        {
+            awesomeValidation.addValidation(this,R.id.time,"^([0-1][0-9]|[2][0-3]):([0-5][0-9])$",R.string.error_time2);
+        }
+
     }
-
-    //validation
-    private void validate(){
-        sweight = eweight.getText().toString();
-        date = edate.getText().toString();
-        time = etime.getText().toString();
-
-        // validate concentration
-        if(sweight.isEmpty()) {
-            awesomeValidation.addValidation(this, R.id.weight, "^[0-9]{1,3}", R.string.error_weight);
-        }
-
-        //validate date
-        if(date.isEmpty()){
-            awesomeValidation.addValidation(this,R.id.date,"^[0-9]{1,2}[/][0-9]{0,2}[/][0-9]{4}$",R.string.error_date2);
-        }
-
-        //validate time
-        if(time.isEmpty()) {
-            awesomeValidation.addValidation(this, R.id.time, "^[0-9]{1,2}[:][0-9]{1,2}$", R.string.error_time2);
-        }
-        awesomeValidation.validate();
-    }
-
-    public void submitWeight(View v){
+    public void submitWeight(View v)
+    {
         validate();
         if(awesomeValidation.validate())
         {
@@ -163,18 +137,24 @@ public class WeightEntry extends AppCompatActivity{
             }
             if(flag)
             {
-                Intent ii=new Intent(this, WeightLog.class);
                 Toast.makeText(this,"Record Entered",Toast.LENGTH_LONG).show();
+                Intent ii=new Intent(this, WeightLog.class);
                 startActivity(ii);
             }
             else
                 Toast.makeText(this,"Insertion Failed",Toast.LENGTH_LONG).show();
         }
     }
-
+    private void setWeight()
+    {
+        weight.setWeight(Integer.parseInt(eweight.getText().toString()));
+        weight.setDate(edate.getText().toString());
+        weight.setTime(etime.getText().toString());
+        weight.setEmail(utils.getEmail(this));
+    }
     private void updateWeight()
     {
-        eweight.setText(String.valueOf(i.getIntExtra("weight",0)));
+        eweight.setText(String.valueOf(i.getDoubleExtra("weight",0)));
         edate.setText(i.getStringExtra("date"));
         etime.setText(i.getStringExtra("time"));
     }

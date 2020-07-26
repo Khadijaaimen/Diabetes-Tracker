@@ -1,59 +1,60 @@
 package com.example.diabetestracker;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
-import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.github.clans.fab.FloatingActionButton;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 
 public class SugarLog extends AppCompatActivity {
-
     ArrayList<Sugar> sugarEntries=new ArrayList<>();
     ListView listView;
     DatabaseHelper db;
     Preferences utils;
     Activity activity;
+    com.github.clans.fab.FloatingActionButton fab;
     AlertDialog.Builder builder;
     Sugar clickedSugar;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sugar_log);
-
+        Intent i=getIntent();
         activity=this;
+        listView=findViewById(R.id.sugarList);
         clickedSugar=new Sugar();
         db=new DatabaseHelper(this);
         utils=new Preferences();
         new GetSugarData().execute();
+        fab=findViewById(R.id.sugarfab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i2=new Intent(SugarLog.this,SugarEntry.class);
+                startActivity(i2);
+            }
+        });
+        //  getSugarEntries();
 
-        listView = findViewById(R.id.sugarList);
     }
-
-    //intent to Sugar Entry activity
-    public void sugarEntry(View v){
-        Intent i = new Intent(this, SugarEntry.class);
-        startActivity(i);
-    }
-
-    public class GetSugarData extends AsyncTask {
+    public class GetSugarData extends AsyncTask{
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
@@ -84,77 +85,23 @@ public class SugarLog extends AppCompatActivity {
 
         }
     }
-
     protected Void getSugarEntries()
     {
         String email=utils.getEmail(this);
         sugarEntries=db.getSugarEntries(email);
         return null;
     }
-
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.sugar_log, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.dlt_sugar:
-                builder = new AlertDialog.Builder(this);
-                builder.setMessage("Are you sure you want to delete?");
-                builder.setCancelable(false);
-                builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        boolean flag = db.deleteRecord(clickedSugar.getEmail(), String.valueOf(clickedSugar.getId()));
-                        if (flag)
-                            Toast.makeText(getApplicationContext(), "Record Deleted ", Toast.LENGTH_SHORT).show();
-                        else
-                            Toast.makeText(getApplicationContext(), "Deletion Unsuccessful", Toast.LENGTH_SHORT).show();
-                    }
-                });
-                builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.cancel();
-                    }
-                });
-                AlertDialog alertDialog = builder.create();
-                alertDialog.show();
-                return true;
-
-            case R.id.level:
-                Intent i = new Intent(this, TargetLevels.class);
-                startActivity(i);
-                return true;
-
-            case R.id.warning:
-                Intent i2 = new Intent(this, SugarWarning.class);
-                startActivity(i2);
-                return true;
-            default:
-                break;
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
-    @Override
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
         super.onCreateContextMenu(menu, v, menuInfo);
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.context, menu);
     }
-
-    @Override
     public boolean onContextItemSelected(MenuItem item) {
+
         AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
         switch (item.getItemId()) {
-
             case R.id.edit:
-                Intent ii = new Intent(this, SugarEntry.class);
+                Intent ii=new Intent(this,SugarEntry.class);
                 ii.putExtra("id",clickedSugar.getId());
                 ii.putExtra("conc",clickedSugar.getConcentration());
                 ii.putExtra("date",clickedSugar.getDate());
@@ -163,7 +110,6 @@ public class SugarLog extends AppCompatActivity {
                 startActivity(ii);
 
                 return true;
-
             case R.id.delete:
                 builder=new AlertDialog.Builder(this);
                 builder.setMessage("Are you sure you want to delete?");
@@ -171,9 +117,12 @@ public class SugarLog extends AppCompatActivity {
                 builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        boolean flag= db.deleteRecord(clickedSugar.getEmail(),String.valueOf(clickedSugar.getId()));
-                        if(flag)
-                            Toast.makeText(getApplicationContext(),"Record Deleted ",Toast.LENGTH_SHORT).show();
+                        boolean flag= db.deleteSugarRecord(clickedSugar.getEmail(),String.valueOf(clickedSugar.getId()));
+                        if(flag) {
+                            Toast.makeText(getApplicationContext(), "Record Deleted ", Toast.LENGTH_SHORT).show();
+                            finish();
+                            startActivity(getIntent());
+                        }
                         else
                             Toast.makeText(getApplicationContext(),"Deletion Unsuccessful",Toast.LENGTH_SHORT).show();
                     }
@@ -188,6 +137,57 @@ public class SugarLog extends AppCompatActivity {
                 alertDialog.show();
             default:
                 return super.onContextItemSelected(item);
+        }
+    }
+
+    //options menu
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.sugar_log, menu);
+        return true;
+    }
+
+    //operations in options menu
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.dlt_med:
+                builder=new AlertDialog.Builder(this);
+                builder.setMessage("Are you sure you want to delete?");
+                builder.setCancelable(false);
+                builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        boolean flag= db.deleteSugarRecord(clickedSugar.getEmail(),String.valueOf(clickedSugar.getId()));
+                        if(flag) {
+                            Toast.makeText(getApplicationContext(), "Record Deleted ", Toast.LENGTH_SHORT).show();
+                            finish();
+                            startActivity(getIntent());
+                        }
+                        else
+                            Toast.makeText(getApplicationContext(),"Deletion Unsuccessful",Toast.LENGTH_SHORT).show();
+                    }
+                });
+                builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+                AlertDialog alertDialog=builder.create();
+                alertDialog.show();
+                return true;
+
+            case R.id.level:
+                Intent i1 = new Intent(this, TargetLevels.class);
+                startActivity(i1);
+                return true;
+            case R.id.warning:
+                Intent i2 = new Intent(this, SugarWarning.class);
+                startActivity(i2);
+                return true;
+
+            default:
+                return false;
         }
     }
 }

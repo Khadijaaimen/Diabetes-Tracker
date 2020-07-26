@@ -43,7 +43,7 @@ public class CustomWeightList extends BaseAdapter {
         if (weightEntries.size() > position) {
             vh.date.setText(weightEntries.get(position).getDate());
             vh.time.setText(weightEntries.get(position).getTime());
-            vh.weight.setText(String.valueOf(weightEntries.get(position).getWeight()));
+            vh.weight.setText(weightEntries.get(position).getWeight()+" kg");
             return row;
         } else {
             return row;

@@ -238,7 +238,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
         return sugarEntries;
     }
-    public boolean deleteRecord(String email,String id)
+    public boolean deleteSugarRecord(String email,String id)
     {
         SQLiteDatabase db=this.getWritableDatabase();
         String where=DatabaseContract.SugarTable.COL_EMAIL+" =? "+" AND "+DatabaseContract.SugarTable._ID+" =? ";

@@ -8,12 +8,12 @@ import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.v4.media.session.IMediaControllerCallback;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TimePicker;
 import android.widget.Toast;
@@ -23,56 +23,37 @@ import com.basgeekball.awesomevalidation.ValidationStyle;
 
 import java.util.Calendar;
 
-public class MedEntry extends AppCompatActivity implements AdapterView.OnItemSelectedListener{
-
-    DatePickerDialog picker;
-
-    Intent i;
-    Preferences utils;
-    Medicine medicine;
-    DatabaseHelper dbHelper;
-    ArrayAdapter<CharSequence> adapter;
-
-    //edit view
+public class MedEntry extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
     EditText emed, edosage, edate, etime;
-    String med, dose, date, time;
-
-    //spinner
-    Spinner measure;
-
-    //for validation
+    DatePickerDialog picker;
+    Medicine medicine;
     private AwesomeValidation awesomeValidation;
+    Preferences utils;
+    DatabaseHelper dbHelper;
+    Intent i;
+    Spinner spinner;
+    ArrayAdapter<CharSequence> adapter;
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_med_entry);
-
         i=getIntent();
 
-        //for validation
-        awesomeValidation = new AwesomeValidation(ValidationStyle.BASIC);
-
-        //edit texts
-        emed = findViewById(R.id.medication);
-        edosage = findViewById(R.id.dosage);
-        measure = findViewById(R.id.spinner1);
-        edate = findViewById(R.id.date);
-
+        spinner=findViewById(R.id.unit);
+        adapter=ArrayAdapter.createFromResource(this,R.array.unit ,android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter);
+        spinner.setOnItemSelectedListener(this);
         getEditTexts();
         medicine=new Medicine();
         utils=new Preferences();
         dbHelper=new DatabaseHelper(this);
-        //if intent is coming from Edit button
-        if(i.hasExtra("med"))
-        {
-            updateMed();
-        }
 
         edate.setShowSoftInputOnFocus(false);
 
-        //datepicker dialog
+        //datepicker
         edate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -92,10 +73,6 @@ public class MedEntry extends AppCompatActivity implements AdapterView.OnItemSel
                 picker.show();
             }
         });
-
-
-        etime = findViewById(R.id.time);
-        time = etime.getText().toString();
 
         etime.setShowSoftInputOnFocus(false);
 
@@ -120,69 +97,63 @@ public class MedEntry extends AppCompatActivity implements AdapterView.OnItemSel
             }
         });
 
-        adapter=ArrayAdapter.createFromResource(this,R.array.unit,android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        measure.setAdapter(adapter);
-        measure.setOnItemSelectedListener(this);
-
+        //if intent is coming from Edit button
+        if(i.hasExtra("med"))
+        {
+            updateMed();
+        }
     }
+
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
-            medicine.setUnit(parent.getItemAtPosition(position).toString());
+        medicine.setUnit(parent.getItemAtPosition(position).toString());
     }
+
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
 
     }
-
-    private void getEditTexts(){
-        emed = findViewById(R.id.medication);
-        edosage = findViewById(R.id.dosage);
-        edate = findViewById(R.id.date);
-        etime = findViewById(R.id.time);
+    private void getEditTexts()
+    {
+        emed=(EditText)findViewById(R.id.medication);
+        edosage=(EditText)findViewById(R.id.dosage);
+        edate=(EditText)findViewById(R.id.date);
+        etime=(EditText)findViewById(R.id.time);
     }
 
-    private void setMedicine(){
+    private void validate()
+    {
+        awesomeValidation = new AwesomeValidation(ValidationStyle.BASIC);
+        if(String.valueOf(emed.getText()).isEmpty())
+        {
+            awesomeValidation.addValidation(this,R.id.concentration,"^[0-9]{1,3}$",R.string.error_concentration);
+        }
+
+        //validate dosage
+        if(String.valueOf(edosage).isEmpty()){
+            awesomeValidation.addValidation(this, R.id.dosage,"^[0-9]{1,3}",R.string.error_dosage2);
+        }
+
+        if(String.valueOf(edate.getText()).isEmpty())
+        {
+            awesomeValidation.addValidation(this,R.id.Date,"^[0-9]{1,2}[/][0-9]{1,2}[/][0-9]{4}$",R.string.error_date2);
+        }
+        if(String.valueOf(etime.getText()).isEmpty())
+        {
+            awesomeValidation.addValidation(this,R.id.Time,"^([0-1][0-9]|[2][0-3]):([0-5][0-9])$",R.string.error_time2);
+        }
+
+    }
+    private void setMedicine()
+    {
         medicine.setMedication(emed.getText().toString().trim());
         medicine.setDosage(Integer.parseInt(edosage.getText().toString().trim()));
         medicine.setDate(edate.getText().toString().trim());
         medicine.setTime(etime.getText().toString().trim());
         medicine.setEmail(utils.getEmail(this));
     }
-
-    //validation
-    private void validate(){
-
-        med = emed.getText().toString();
-        dose = edosage.getText().toString();
-        date = edate.getText().toString();
-        time = etime.getText().toString();
-
-        // validate name
-        awesomeValidation.addValidation(this, R.id.medication,"^[A-Za-z\\s]{1,}[\\.]{0,1}[A-Za-z\\s]{0,}$",R.string.error_medication);
-
-        //validate dosage
-        if(dose.isEmpty()){
-            awesomeValidation.addValidation(this, R.id.dosage,"^[0-9]{1,3}",R.string.error_dosage2);
-        }
-
-        //validate date
-        if(date.isEmpty()){
-            awesomeValidation.addValidation(this,R.id.date,"^[0-9]{1,2}[/][0-9]{0,2}[/][0-9]{4}$",R.string.error_date2);
-        }
-
-        //validate time
-        if(time.isEmpty()){
-            awesomeValidation.addValidation(this,R.id.time,"^[0-9]{1,2}[:][0-9]{1,2}$",R.string.error_time2);
-        }
-
-
-        awesomeValidation.validate();
-
-    }
-
-    public void submitMed(View v){
+    public void submitMed(View v)
+    {
         validate();
         if(awesomeValidation.validate())
         {
@@ -203,19 +174,18 @@ public class MedEntry extends AppCompatActivity implements AdapterView.OnItemSel
                 Toast.makeText(this,"Record Entered",Toast.LENGTH_LONG).show();
                 Intent i2=new Intent(this,MedLog.class);
                 startActivity(i2);
-                finish();
             }
 
         }
     }
-
     private void updateMed()
     {
         emed.setText(i.getStringExtra("med"));
-        edosage.setText(String.valueOf(i.getIntExtra("dose",0)));
+        edosage.setText(String.valueOf(i.getIntExtra("dosage",0)));
         edate.setText(i.getStringExtra("date"));
         etime.setText(i.getStringExtra("time"));
         int position=adapter.getPosition(i.getStringExtra("unit"));
-        measure.setSelection(position);
+        spinner.setSelection(position);
     }
 }
+

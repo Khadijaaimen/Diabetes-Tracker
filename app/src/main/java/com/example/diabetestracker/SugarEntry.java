@@ -13,6 +13,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TimePicker;
 import android.widget.Toast;
@@ -22,46 +23,32 @@ import com.basgeekball.awesomevalidation.ValidationStyle;
 
 import java.util.Calendar;
 
-
-public class SugarEntry extends AppCompatActivity implements AdapterView.OnItemSelectedListener{
-
+public class SugarEntry extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
+    EditText econcentration,edate,etime;
     DatePickerDialog picker;
-
-    Intent i;
-    Preferences utils;
     Sugar sugar;
-    DatabaseHelper dbHelper;
-    ArrayAdapter<CharSequence> adapter;
-
-    Spinner spinner;
-
-    //edit view
-    EditText econ, edate, etime;
-    String concent, date, time;
-
-    //for validation
     private AwesomeValidation awesomeValidation;
-
+    Preferences utils;
+    DatabaseHelper dbHelper;
+    Intent i;
+    Spinner spinner;
+    ArrayAdapter<CharSequence> adapter;
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sugar_entry);
+        i=getIntent();
 
-        i = getIntent();
-
-        //for validation
-        awesomeValidation = new AwesomeValidation(ValidationStyle.BASIC);
-
+        spinner=findViewById(R.id.Measured);
+        adapter=ArrayAdapter.createFromResource(this,R.array.measured,android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter);
+        spinner.setOnItemSelectedListener(this);
         getEditTexts();
-        sugar = new Sugar();
-        utils = new Preferences();
-        dbHelper = new DatabaseHelper(this);
-        //if intent is coming from Edit button
-        if (i.hasExtra("conc")) {
-            updateSugar();
-        }
-
+        sugar=new Sugar();
+        utils=new Preferences();
+        dbHelper=new DatabaseHelper(this);
 
         edate.setShowSoftInputOnFocus(false);
 
@@ -109,64 +96,54 @@ public class SugarEntry extends AppCompatActivity implements AdapterView.OnItemS
             }
         });
 
-        spinner = findViewById(R.id.spinner1);
-        adapter=ArrayAdapter.createFromResource(this,R.array.list,android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(adapter);
-        spinner.setOnItemSelectedListener(this);
+        //if intent is coming from Edit button
+        if(i.hasExtra("conc"))
+        {
+            updateSugar();
+        }
     }
+
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
         sugar.setMeasured(parent.getItemAtPosition(position).toString());
     }
+
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
 
-
+    }
+    private void getEditTexts()
+    {
+        econcentration=(EditText)findViewById(R.id.concentration);
+        edate=(EditText)findViewById(R.id.Date);
+        etime=(EditText)findViewById(R.id.Time);
     }
 
-    private void getEditTexts(){
-        econ = findViewById(R.id.cont);
-        edate = findViewById(R.id.date);
-        etime = findViewById(R.id.time);
-    }
+    private void validate()
+    {
+        awesomeValidation = new AwesomeValidation(ValidationStyle.BASIC);
+        if(String.valueOf(econcentration.getText()).isEmpty())
+        {
+            awesomeValidation.addValidation(this,R.id.concentration,"^[0-9]{1,3}$",R.string.error_concentration);
+        }
+        if(String.valueOf(edate.getText()).isEmpty())
+        {
+            awesomeValidation.addValidation(this,R.id.Date,"^[0-9]{1,2}[/][0-9]{1,2}[/][0-9]{4}$",R.string.error_date2);
+        }
+        if(String.valueOf(etime.getText()).isEmpty())
+        {
+            awesomeValidation.addValidation(this,R.id.Time,"^([0-1][0-9]|[2][0-3]):([0-5][0-9])$",R.string.error_time2);
+        }
 
+
+    }
     private void setSugar()
     {
-        sugar.setConcentration(Integer.parseInt(econ.getText().toString().trim()));
+        sugar.setConcentration(Integer.parseInt(econcentration.getText().toString().trim()));
         sugar.setDate(edate.getText().toString().trim());
         sugar.setTime(etime.getText().toString().trim());
         sugar.setEmail(utils.getEmail(this));
     }
-
-
-    private void validate(){
-        concent = econ.getText().toString();
-        date = edate.getText().toString();
-        time = etime.getText().toString();
-
-        // validate concentration
-        if(concent.isEmpty()) {
-            awesomeValidation.addValidation(this, R.id.cont, "^[0-9]{1,3}$", R.string.error_concentration);
-        }
-
-        //validate date
-        if(date.isEmpty()){
-            awesomeValidation.addValidation(this,R.id.date,"^[0-9]{1,2}[/][0-9]{0,2}[/][0-9]{4}$",R.string.error_date2);
-        }
-
-        //validate time
-        if(time.isEmpty()){
-            awesomeValidation.addValidation(this,R.id.time,"^[0-9]{1,2}[:][0-9]{1,2}$",R.string.error_time2);
-        }
-
-
-        awesomeValidation.validate();
-
-
-    }
-
     public void submitSugar(View v)
     {
         validate();
@@ -189,14 +166,13 @@ public class SugarEntry extends AppCompatActivity implements AdapterView.OnItemS
                 Toast.makeText(this,"Record Entered",Toast.LENGTH_LONG).show();
                 Intent i2=new Intent(this,SugarLog.class);
                 startActivity(i2);
-                finish();
             }
 
         }
     }
     private void updateSugar()
     {
-        econ.setText(String.valueOf(i.getIntExtra("conc",0)));
+        econcentration.setText(String.valueOf(i.getIntExtra("conc",0)));
         edate.setText(i.getStringExtra("date"));
         etime.setText(i.getStringExtra("time"));
         int position=adapter.getPosition(i.getStringExtra("measured"));

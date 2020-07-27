@@ -13,6 +13,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.database.sqlite.SQLiteDatabase;
 import android.location.Location;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -41,6 +42,7 @@ public class MedLog extends AppCompatActivity {
     ArrayList<Medicine> medEntries=new ArrayList<>();
     ListView listView;
     DatabaseHelper db;
+    SQLiteDatabase database;
     Preferences utils;
     Activity activity;
     com.github.clans.fab.FloatingActionButton fab;
@@ -97,15 +99,19 @@ public class MedLog extends AppCompatActivity {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                    Toast.makeText(getApplicationContext(),"You Selected "+medEntries.get(position).getId(), Toast.LENGTH_SHORT).show();
-                    clickedMedicine.setId(medEntries.get(position).getId());
-                    clickedMedicine.setMedication(medEntries.get(position).getMedication());
-                    clickedMedicine.setUnit(medEntries.get(position).getUnit());
-                    clickedMedicine.setDosage(medEntries.get(position).getDosage());
-                    clickedMedicine.setDate(medEntries.get(position).getDate());
-                    clickedMedicine.setTime(medEntries.get(position).getTime());
-                    clickedMedicine.setEmail(medEntries.get(position).getEmail());
-//
+                    if(medEntries.size() > position) {
+                        Toast.makeText(getApplicationContext(), "You Selected " + medEntries.get(position).getId(), Toast.LENGTH_SHORT).show();
+                        clickedMedicine.setId(medEntries.get(position).getId());
+                        clickedMedicine.setMedication(medEntries.get(position).getMedication());
+                        clickedMedicine.setUnit(medEntries.get(position).getUnit());
+                        clickedMedicine.setDosage(medEntries.get(position).getDosage());
+                        clickedMedicine.setDate(medEntries.get(position).getDate());
+                        clickedMedicine.setTime(medEntries.get(position).getTime());
+                        clickedMedicine.setEmail(medEntries.get(position).getEmail());
+                    }
+                    else{
+                        Toast.makeText(getApplicationContext(), "Enter Data first ", Toast.LENGTH_SHORT).show();
+                    }
                 }
             });
 
@@ -130,19 +136,20 @@ public class MedLog extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.dlt_med:
                 builder=new AlertDialog.Builder(this);
-                builder.setMessage("Are you sure you want to delete?");
+                builder.setMessage("Are you sure you want to delete Medication records?");
                 builder.setCancelable(false);
                 builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        boolean flag= db.deleteMedRecord(clickedMedicine.getEmail(),String.valueOf(clickedMedicine.getId()));
-                        if(flag) {
-                            Toast.makeText(getApplicationContext(), "Record Deleted ", Toast.LENGTH_SHORT).show();
-                            finish();
-                            startActivity(getIntent());
+                        try{
+                            database = db.getReadableDatabase();
+                            database.execSQL("delete from medication");
+                            Toast.makeText(getApplicationContext(), "Data Deleted ", Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(MedLog.this, Tabs.class);
+                            startActivity(intent);}
+                        catch (Exception e) {
+                            Toast.makeText(getApplicationContext(), "Deletion unsuccessful", Toast.LENGTH_SHORT).show();
                         }
-                        else
-                            Toast.makeText(getApplicationContext(),"Deletion Unsuccessful",Toast.LENGTH_SHORT).show();
                     }
                 });
                 builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
@@ -196,7 +203,6 @@ public class MedLog extends AppCompatActivity {
                         boolean flag= db.deleteMedRecord(clickedMedicine.getEmail(),String.valueOf(clickedMedicine.getId()));
                         if(flag) {
                             Toast.makeText(getApplicationContext(), "Record Deleted ", Toast.LENGTH_SHORT).show();
-                            finish();
                             startActivity(getIntent());
                         }
                         else

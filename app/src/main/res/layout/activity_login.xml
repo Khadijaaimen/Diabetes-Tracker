@@ -76,7 +76,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
-        android:text="Want to save password?"
+        android:text="Keep me logged in"
         android:layout_below="@id/e2"/>
 
     <TextView

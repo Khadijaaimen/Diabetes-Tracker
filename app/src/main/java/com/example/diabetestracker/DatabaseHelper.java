@@ -243,7 +243,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db=this.getWritableDatabase();
         String where=DatabaseContract.SugarTable.COL_EMAIL+" =? "+" AND "+DatabaseContract.SugarTable._ID+" =? ";
         String[] selectionArgs={email,id};
-        Log.d("TAG",email);
+//        Log.d("TAG",email);
         Log.d("TAG",id);
         int i=0;
         try{
@@ -338,7 +338,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db=this.getWritableDatabase();
         String where=DatabaseContract.MedicationsTable.COL_EMAIL+" =? "+" AND "+DatabaseContract.MedicationsTable._ID+" =? ";
         String[] selectionArgs={email,id};
-        Log.d("TAG",email);
+//        Log.d("TAG",email);
         Log.d("TAG",id);
         int i=0;
         try{
@@ -419,11 +419,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return weightEntries;
     }
 
-    public boolean deleteWeightRecord(String email, String id) {
+    public boolean deleteWeightRecord(String id) {
         SQLiteDatabase db = this.getWritableDatabase();
-        String where = DatabaseContract.WeightTable.COL_EMAIL + " =? " + " AND " + DatabaseContract.WeightTable._ID + " =? ";
-        String[] selectionArgs = {email, id};
-        Log.d("TAG", email);
+        String where = DatabaseContract.WeightTable._ID + " =? ";
+        String[] selectionArgs = {id};
         Log.d("TAG", id);
         int i = 0;
         try {

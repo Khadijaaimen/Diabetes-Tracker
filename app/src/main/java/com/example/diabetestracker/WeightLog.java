@@ -6,6 +6,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.ContextMenu;
@@ -27,6 +28,7 @@ public class WeightLog extends AppCompatActivity {
     ListView listView;
     DatabaseHelper db;
     Preferences utils;
+    SQLiteDatabase database;
     Activity activity;
     AlertDialog.Builder builder;
     Weight clickedWeight;
@@ -72,13 +74,18 @@ public class WeightLog extends AppCompatActivity {
             listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    Toast.makeText(getApplicationContext(), "You Selected " + weightEntries.get(position).getWeight(), Toast.LENGTH_SHORT).show();
-                    clickedWeight.setId(weightEntries.get(position).getId());
-                    clickedWeight.setWeight(weightEntries.get(position).getWeight());
-                    clickedWeight.setDate(weightEntries.get(position).getDate());
-                    clickedWeight.setTime(weightEntries.get(position).getTime());
-                    clickedWeight.setEmail(weightEntries.get(position).getEmail());
+                    if (weightEntries.size() > position) {
+                        Toast.makeText(getApplicationContext(), "You Selected " + weightEntries.get(position).getWeight(), Toast.LENGTH_SHORT).show();
+                        clickedWeight.setId(weightEntries.get(position).getId());
+                        clickedWeight.setWeight(weightEntries.get(position).getWeight());
+                        clickedWeight.setDate(weightEntries.get(position).getDate());
+                        clickedWeight.setTime(weightEntries.get(position).getTime());
+                        clickedWeight.setEmail(weightEntries.get(position).getEmail());
+                    } else {
+                        Toast.makeText(getApplicationContext(), "Enter Data first ", Toast.LENGTH_SHORT).show();
+                    }
                 }
+
             });
 
         }
@@ -101,16 +108,20 @@ public class WeightLog extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.dlt_weight:
                 builder=new AlertDialog.Builder(this);
-                builder.setMessage("Are you sure you want to delete?");
+                builder.setMessage("Are you sure you want to delete Weight records?");
                 builder.setCancelable(false);
                 builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        boolean flag= db.deleteWeightRecord(clickedWeight.getEmail(),String.valueOf(clickedWeight.getId()));
-                        if(flag)
-                            Toast.makeText(getApplicationContext(),"Record Deleted ",Toast.LENGTH_SHORT).show();
-                        else
-                            Toast.makeText(getApplicationContext(),"Deletion Unsuccessful",Toast.LENGTH_SHORT).show();
+                        try {
+                            database = db.getReadableDatabase();
+                            database.execSQL("delete from weight");
+                            Toast.makeText(getApplicationContext(), "Data Deleted ", Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(WeightLog.this, Tabs.class);
+                            startActivity(intent);
+                        } catch (Exception e) {
+                            Toast.makeText(getApplicationContext(), "Deletion unsuccessful", Toast.LENGTH_SHORT).show();
+                        }
                     }
                 });
                 builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
@@ -158,7 +169,7 @@ public class WeightLog extends AppCompatActivity {
                 builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        boolean flag = db.deleteWeightRecord(clickedWeight.getEmail(), String.valueOf(clickedWeight.getId()));
+                        boolean flag = db.deleteWeightRecord(String.valueOf(clickedWeight.getId()));
                         if (flag)
                             Toast.makeText(getApplicationContext(), "Record Deleted ", Toast.LENGTH_SHORT).show();
                         else

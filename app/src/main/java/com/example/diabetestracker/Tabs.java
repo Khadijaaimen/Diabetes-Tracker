@@ -1,7 +1,9 @@
 package com.example.diabetestracker;
 
 import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 
 import com.github.clans.fab.FloatingActionButton;
@@ -20,6 +22,9 @@ import android.widget.Toast;
 
 public class Tabs extends AppCompatActivity {
 
+    AlertDialog.Builder builder;
+    DatabaseHelper db;
+    SQLiteDatabase database;
     Toolbar tb;
     FloatingActionButton fab1, fab2, fab3;
     Preferences utils;
@@ -37,6 +42,7 @@ public class Tabs extends AppCompatActivity {
 
         Intent i=getIntent();
         utils=new Preferences();
+        db=new DatabaseHelper(this);
         tb = findViewById(R.id.title);
         dbHelper=new DatabaseHelper(this);
         user=new User();
@@ -99,36 +105,33 @@ public class Tabs extends AppCompatActivity {
                 break;
 
             case R.id.dlt:
-                final AlertDialog.Builder alert = new AlertDialog.Builder(Tabs.this);
-                View v = getLayoutInflater().inflate(R.layout.activity_popup, null);
-
-                alert.setView(v);
-
-                final AlertDialog alertDialog = alert.create();
-                alertDialog.setCanceledOnTouchOutside(false);
-
-                TextView tv = v.findViewById(R.id.del);
-                tv.setText("Do you want to delete all records?");
-
-                Button dlt = v.findViewById(R.id.dlt_records);
-                Button bcancel = v.findViewById(R.id.cancel);
-
-                dlt.setOnClickListener(new View.OnClickListener() {
+                builder=new AlertDialog.Builder(this);
+                builder.setMessage("Are you sure you want to delete all records?");
+                builder.setCancelable(false);
+                builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
-                    public void onClick(View v) {
-                        Toast.makeText(getApplicationContext(), "All Records Deleted", Toast.LENGTH_SHORT).show();
-                        alertDialog.dismiss();
+                    public void onClick(DialogInterface dialog, int which) {
+                        try{
+                            database = db.getReadableDatabase();
+                            database.execSQL("delete from medication");
+                            database.execSQL("delete from sugar");
+                            database.execSQL("delete from weight");
+                            Toast.makeText(getApplicationContext(), "All Records Deleted ", Toast.LENGTH_SHORT).show();
+                          }
+                        catch (Exception e) {
+                            Toast.makeText(getApplicationContext(), "Deletion unsuccessful", Toast.LENGTH_SHORT).show();
+                        }
                     }
                 });
-
-                bcancel.setOnClickListener(new View.OnClickListener() {
+                builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
                     @Override
-                    public void onClick(View v) {
-                        alertDialog.dismiss();
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
                     }
                 });
+                AlertDialog alertDialog=builder.create();
                 alertDialog.show();
-                break;
+                return true;
 
             case R.id.logout:
                 utils.saveEmail("",this);

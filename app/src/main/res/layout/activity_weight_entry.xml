@@ -34,7 +34,7 @@
             android:layout_width="215dp"
             android:layout_height="wrap_content"
             android:hint="Enter Weight..."
-            android:inputType="numberDecimal" />
+            android:inputType="number" />
     </LinearLayout>
 
 

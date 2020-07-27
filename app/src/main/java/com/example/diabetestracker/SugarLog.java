@@ -7,6 +7,7 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -27,6 +28,7 @@ public class SugarLog extends AppCompatActivity {
     ArrayList<Sugar> sugarEntries=new ArrayList<>();
     ListView listView;
     DatabaseHelper db;
+    SQLiteDatabase database;
     Preferences utils;
     Activity activity;
     com.github.clans.fab.FloatingActionButton fab;
@@ -74,12 +76,17 @@ public class SugarLog extends AppCompatActivity {
             listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    Toast.makeText(getApplicationContext(),"You Selected "+sugarEntries.get(position).getConcentration(), Toast.LENGTH_SHORT).show();
-                    clickedSugar.setId(sugarEntries.get(position).getId());
-                    clickedSugar.setConcentration(sugarEntries.get(position).getConcentration());
-                    clickedSugar.setDate(sugarEntries.get(position).getDate());
-                    clickedSugar.setTime(sugarEntries.get(position).getTime());
-                    clickedSugar.setEmail(sugarEntries.get(position).getEmail());
+                    if(sugarEntries.size() > position) {
+                        Toast.makeText(getApplicationContext(), "You Selected " + sugarEntries.get(position).getConcentration(), Toast.LENGTH_SHORT).show();
+                        clickedSugar.setId(sugarEntries.get(position).getId());
+                        clickedSugar.setConcentration(sugarEntries.get(position).getConcentration());
+                        clickedSugar.setDate(sugarEntries.get(position).getDate());
+                        clickedSugar.setTime(sugarEntries.get(position).getTime());
+                        clickedSugar.setEmail(sugarEntries.get(position).getEmail());
+                    }
+                    else{
+                        Toast.makeText(getApplicationContext(), "Enter Data first ", Toast.LENGTH_SHORT).show();
+                    }
                 }
             });
 
@@ -118,11 +125,8 @@ public class SugarLog extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         boolean flag= db.deleteSugarRecord(clickedSugar.getEmail(),String.valueOf(clickedSugar.getId()));
-                        if(flag) {
-                            Toast.makeText(getApplicationContext(), "Record Deleted ", Toast.LENGTH_SHORT).show();
-                            finish();
-                            startActivity(getIntent());
-                        }
+                        if(flag)
+                            Toast.makeText(getApplicationContext(),"Record Deleted ",Toast.LENGTH_SHORT).show();
                         else
                             Toast.makeText(getApplicationContext(),"Deletion Unsuccessful",Toast.LENGTH_SHORT).show();
                     }
@@ -150,21 +154,23 @@ public class SugarLog extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.dlt_med:
+            case R.id.dlt_sugar:
                 builder=new AlertDialog.Builder(this);
-                builder.setMessage("Are you sure you want to delete?");
+                builder.setMessage("Are you sure you want to delete Blood Sugar records?");
                 builder.setCancelable(false);
                 builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        boolean flag= db.deleteSugarRecord(clickedSugar.getEmail(),String.valueOf(clickedSugar.getId()));
-                        if(flag) {
-                            Toast.makeText(getApplicationContext(), "Record Deleted ", Toast.LENGTH_SHORT).show();
-                            finish();
-                            startActivity(getIntent());
+                        try{
+                        database = db.getReadableDatabase();
+                        database.execSQL("delete from sugar");
+                        Toast.makeText(getApplicationContext(), "Data Deleted ", Toast.LENGTH_SHORT).show();
+                      Intent intent = new Intent(SugarLog.this, Tabs.class);
+                      startActivity(intent);}
+                        catch (Exception e){
+                            Toast.makeText(getApplicationContext(), "Deletion unsuccessful", Toast.LENGTH_SHORT).show();
+
                         }
-                        else
-                            Toast.makeText(getApplicationContext(),"Deletion Unsuccessful",Toast.LENGTH_SHORT).show();
                     }
                 });
                 builder.setNegativeButton("No", new DialogInterface.OnClickListener() {

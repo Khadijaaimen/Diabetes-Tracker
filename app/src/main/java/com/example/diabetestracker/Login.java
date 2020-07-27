@@ -28,6 +28,7 @@ public class Login extends AppCompatActivity {
     User user;
     DatabaseHelper dbHelper;
     private AwesomeValidation awesomeValidation;
+    CheckBox checkBox;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +36,7 @@ public class Login extends AppCompatActivity {
         setContentView(R.layout.activity_login);
         getSupportActionBar().hide();
 
+        checkBox = findViewById(R.id.c1);
         Intent i = getIntent();
         eemail = (EditText) findViewById(R.id.e1);
         epassword = (EditText) findViewById(R.id.e2);

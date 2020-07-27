@@ -36,9 +36,11 @@
         <activity android:name=".Statistics" />
         <activity
             android:name=".WeightLog"
+            android:noHistory="true"
           />
         <activity
             android:name=".MedLog"
+            android:noHistory="true"
            />
         <activity android:name=".SugarWarning" />
         <activity android:name=".TargetLevels" />
@@ -50,6 +52,7 @@
             android:noHistory="true" />
         <activity
             android:name=".WeightEntry"
+            android:noHistory="true"
            />
         <activity android:name=".Welcome" />
         <activity

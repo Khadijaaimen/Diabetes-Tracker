@@ -38,6 +38,7 @@
         android:padding="10dp"
         android:gravity="center"
         android:text="Weight"
+        android:id="@+id/text"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_rowSpan="2"

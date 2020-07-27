@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -153,6 +154,9 @@ public class Statistics extends AppCompatActivity {
             t8.setText("-");
         }
 
+        if(count_other==0 && count_random==0 && count_adinner==0 && count_bdinner==0 && count_alunch==0&& count_blunch==0&& count_fast==0 && count_bf==0){
+            Toast.makeText(this, "No data inserted in Sugar Log", Toast.LENGTH_LONG).show();
+        }
 
     }
 }

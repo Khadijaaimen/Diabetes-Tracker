@@ -1,12 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/scroll"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    android:stackFromBottom="true"
+    tools:context=".SugarWarning"
+    android:transcriptMode="alwaysScroll">
+<LinearLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/bg"
+    android:orientation="vertical"
     android:padding="20dp"
-    tools:context=".SugarWarning">
+    >
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -27,4 +36,278 @@
             android:src="@drawable/ic_baseline_warning_24"/>
 
     </LinearLayout>
+
+    <TextView
+        android:layout_marginTop="20dp"
+        android:textColor="@android:color/black"
+        android:text="Here are some of the most common emergencies that can arise, their warning signs, and what to do."
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:layout_gravity="center"
+        android:textSize="18dp"
+        android:textStyle="bold"
+        android:fontFamily="sans-serif"
+        android:layout_marginTop="5dp"
+        android:textColor="#BE1E2D"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="SEVERE HYPGLYCEMIA"/>
+
+    <TextView
+        android:textColor="@android:color/black"
+        android:text="Hypoglycemia happens when blood sugar levels are too low, usually below 70 milligrams per deciliter (mg/dl)."
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:textColor="@android:color/black"
+        android:text="Blood sugar levels may drop dangerously low when a person:"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+    android:textColor="@android:color/black"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+    android:text=" •	takes more insulin than they need for their current food intake\n
+•	misses or delays meals\n
+•	does more exercise than they expected to do
+"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"/>
+
+
+    <TextView
+        android:textSize="16dp"
+        android:textStyle="bold"
+        android:fontFamily="sans-serif"
+        android:layout_marginTop="5dp"
+        android:textColor="#BE1E2D"
+        android:text="Early warning signs of hypoglycemia:"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:textColor="@android:color/black"
+        android:text="The warning signs of hypoglycemia include:"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+
+    <TextView
+        android:textColor="@android:color/black"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:text=" •	confusion, dizziness, and nausea\n
+•	feeling hungry\n
+•	feeling shaky, nervous, irritable or anxious\n
+•	sweating, chills, and pale, clammy skin\n
+•	rapid heartbeat"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+
+    <TextView
+        android:textColor="@android:color/black"
+        android:text="If a person tests their blood sugar levels when they experience these symptoms, they may find that they are below 70 mg/dl."
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+
+    <TextView
+        android:textSize="16dp"
+        android:textStyle="bold"
+        android:fontFamily="sans-serif"
+        android:layout_marginTop="5dp"
+        android:textColor="#BE1E2D"
+        android:text="Action to take:"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+
+    <TextView
+        android:textColor="@android:color/black"
+        android:text="If the symptoms appear suddenly, the person should take a high-carb snack to resolve them, such as:"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+
+    <TextView
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:textColor="@android:color/black"
+        android:text=" •	a glucose table\n
+•	a sweet juice\n
+•	a sugar lump"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:layout_gravity="center"
+        android:textSize="18dp"
+        android:textStyle="bold"
+        android:fontFamily="sans-serif"
+        android:layout_marginTop="5dp"
+        android:textColor="#BE1E2D"
+        android:text="HYPERGLYCEMIA"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:textColor="@android:color/black"
+        android:text="Hyperglycemia is when blood sugar levels are too high because insulin is not present or the body is not responding to the insulin that is present."
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:textSize="16dp"
+        android:textStyle="bold"
+        android:fontFamily="sans-serif"
+        android:layout_marginTop="5dp"
+        android:textColor="#BE1E2D"
+        android:text="Early warning signs:"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:textColor="@android:color/black"
+        android:text="The person may notice:"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:textColor="@android:color/black"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:text="•	the need to urinate more frequently\n•	headaches\n•	blurry vision"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:textSize="16dp"
+        android:textStyle="bold"
+        android:fontFamily="sans-serif"
+        android:layout_marginTop="5dp"
+        android:textColor="#BE1E2D"
+        android:text="Action to take:"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:textColor="@android:color/black"
+        android:text="In mild cases, ways of resolving this include:"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:textColor="@android:color/black"
+        android:text=" •	exercising more\n
+•	eating less\n
+•	changing the dose of insulin or other medication"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:layout_gravity="center"
+        android:textSize="18dp"
+        android:textStyle="bold"
+        android:fontFamily="sans-serif"
+        android:layout_marginTop="5dp"
+        android:textColor="#BE1E2D"
+        android:text="HYPERGLYCEMIC HYPERSOMOLAR\n\t\t\t\t\t\t\t\t\t\tSYNDROME"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:textColor="@android:color/black"
+        android:text="According to the American Academy of Family Physicians (AAFP), hyperglycemic hyperosmolar syndrome (HHS) occurs when blood sugar levels become dangerously high, usually above 600 mg/dl."
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:textSize="16dp"
+        android:textStyle="bold"
+        android:fontFamily="sans-serif"
+        android:layout_marginTop="5dp"
+        android:textColor="#BE1E2D"
+        android:text="Early warning signs:"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:textColor="@android:color/black"
+        android:text="Symptoms include:"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:textColor="@android:color/black"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:text=" •	a low-grade fever (in adults)\n
+•	a headache, nausea, and vomiting (in children)\n
+•	a loss of consciousness\n
+•	temporary partial paralysis"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:textSize="16dp"
+        android:textStyle="bold"
+        android:fontFamily="sans-serif"
+        android:layout_marginTop="5dp"
+        android:textColor="#BE1E2D"
+        android:text="Action to take:"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    <TextView
+        android:textColor="@android:color/black"
+        android:text="The person will require treatment in the hospital, which will include rehydration, the use of insulin, and any necessary treatment for an underlying cause."
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:textSize="18dp"
+        android:textStyle="bold"
+        android:fontFamily="sans-serif"
+        android:layout_marginTop="5dp"
+        android:textColor="#BE1E2D"
+        android:text="What to do in an emergency"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:textColor="@android:color/black"
+        android:text="A diabetic emergency happens when symptoms relating to diabetes overwhelm the body."
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+    android:textColor="@android:color/black"
+    android:text="At this point, home treatment is unlikely to help, and delaying medical care could cause permanent damage or death."
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"/>
+    <TextView
+    android:textColor="@android:color/black"
+    android:text="Some of the signs that can indicate a serious problem include:"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"/>
+    <TextView
+    android:textColor="@android:color/black"
+    android:text=" •	chest pain that radiates down the arm\n
+•	difficulty breathing\n
+•	a fever
+"
+        android:layout_marginRight="10dp"
+        android:layout_marginLeft="10dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"/>
+
+
+
 </LinearLayout>
+</ScrollView>

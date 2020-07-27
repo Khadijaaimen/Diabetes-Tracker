@@ -1,70 +1,54 @@
 package com.example.diabetestracker;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.ActionMenuView;
-import androidx.core.app.ActivityCompat;
 
-import android.Manifest;
-import android.app.ActionBar;
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.database.sqlite.SQLiteDatabase;
-import android.location.Location;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.view.ContextMenu;
-import android.view.Gravity;
-import android.view.LayoutInflater;
+import android.util.Log;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.PopupWindow;
-import android.widget.TextView;
 import android.widget.Toast;
 
+import com.baoyz.swipemenulistview.SwipeMenu;
+import com.baoyz.swipemenulistview.SwipeMenuCreator;
+import com.baoyz.swipemenulistview.SwipeMenuItem;
+import com.baoyz.swipemenulistview.SwipeMenuListView;
 
 import java.util.ArrayList;
-import java.util.Locale;
+
 
 public class MedLog extends AppCompatActivity {
-
-//    private FusedLocationProviderClient fusedLocationClient;
-    ArrayList<Medicine> medEntries=new ArrayList<>();
-    ListView listView;
+    ArrayList<Medicine> medEntries = new ArrayList<>();
+    SwipeMenuListView listView;
     DatabaseHelper db;
     SQLiteDatabase database;
     Preferences utils;
-    Activity activity;
     com.github.clans.fab.FloatingActionButton fab;
     AlertDialog.Builder builder;
-    Medicine clickedMedicine;
-
-    private int locationRequestCode = 1000;
-    private double wayLatitude = 0.0, wayLongitude = 0.0;
-
-
+    Activity activity;
+    Medicine med;
+    String id,email;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_med_log);
-
-        Intent i=getIntent();
-        activity=this;
-        clickedMedicine=new Medicine();
-        db=new DatabaseHelper(this);
-        utils=new Preferences();
+        Intent i = getIntent();
+        activity = this;
+        listView = findViewById(R.id.medList);
+        med=new Medicine();
         new GetMedData().execute();
+        utils = new Preferences();
+        db = new DatabaseHelper(this);
         fab=findViewById(R.id.medfab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -73,9 +57,7 @@ public class MedLog extends AppCompatActivity {
                 startActivity(i2);
             }
         });
-        listView = findViewById(R.id.med_entry);
     }
-
 
     public class GetMedData extends AsyncTask {
         @Override
@@ -95,31 +77,50 @@ public class MedLog extends AppCompatActivity {
             CustomMedList customMedList = new CustomMedList(activity, medEntries);
             listView.setAdapter(customMedList);
             registerForContextMenu(listView);
-            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            listView.setMenuCreator(creator);
+            listView.setOnMenuItemClickListener(new SwipeMenuListView.OnMenuItemClickListener() {
                 @Override
-                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                public boolean onMenuItemClick(int position, SwipeMenu menu, int index) {
 
-                    if(medEntries.size() > position) {
-                        Toast.makeText(getApplicationContext(), "You Selected " + medEntries.get(position).getId(), Toast.LENGTH_SHORT).show();
-                        clickedMedicine.setId(medEntries.get(position).getId());
-                        clickedMedicine.setMedication(medEntries.get(position).getMedication());
-                        clickedMedicine.setUnit(medEntries.get(position).getUnit());
-                        clickedMedicine.setDosage(medEntries.get(position).getDosage());
-                        clickedMedicine.setDate(medEntries.get(position).getDate());
-                        clickedMedicine.setTime(medEntries.get(position).getTime());
-                        clickedMedicine.setEmail(medEntries.get(position).getEmail());
-                    }
-                    else{
-                        Toast.makeText(getApplicationContext(), "Enter Data first ", Toast.LENGTH_SHORT).show();
+                    switch (index) {
+                        case 0:
+                            if(medEntries.size() > position) {
+                                Toast.makeText(getApplicationContext(), "You Selected " + medEntries.get(position).getMedication(), Toast.LENGTH_SHORT).show();
+                                Intent i2 = new Intent(MedLog.this, MedEntry.class);
+                                i2.putExtra("med", medEntries.get(position).getMedication());
+                                i2.putExtra("dosage", medEntries.get(position).getDosage());
+                                i2.putExtra("unit", medEntries.get(position).getUnit());
+                                i2.putExtra("date", medEntries.get(position).getDate());
+                                i2.putExtra("time", medEntries.get(position).getTime());
+                                i2.putExtra("id", medEntries.get(position).getId());
+                                startActivity(i2);
+                            }
+                            else{
+                                Toast.makeText(getApplicationContext(), "Enter Any Data", Toast.LENGTH_SHORT).show();
+                            }
+                            return true;
+                        case 1:
+                            id=String.valueOf(medEntries.get(position).getId());
+                            email=medEntries.get(position).getEmail().trim();
+                            boolean flag=db.deleteMedRecord(email,id);
+                            if(flag)
+                            {
+                                Toast.makeText(getApplicationContext(), "Record Deleted ", Toast.LENGTH_SHORT).show();
+                                finish();
+                                startActivity(getIntent());
+                            }
+                            return true;
+                        default:
+                            return false;
                     }
                 }
-            });
 
+            });
         }
     }
-
     protected Void getMedEntries() {
-        String email = utils.getEmail(this);
+        String email = utils.getEmail(MedLog.this);
+        Log.d("TAG", email);
         medEntries = db.getMedEntries(email);
         return null;
     }
@@ -136,7 +137,7 @@ public class MedLog extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.dlt_med:
                 builder=new AlertDialog.Builder(this);
-                builder.setMessage("Are you sure you want to delete Medication records?");
+                builder.setMessage("Are you sure you want to delete?");
                 builder.setCancelable(false);
                 builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
@@ -167,59 +168,38 @@ public class MedLog extends AppCompatActivity {
         }
     }
 
-    //context menu
-    @Override
-    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
-        super.onCreateContextMenu(menu, v, menuInfo);
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.context, menu);
-    }
+    SwipeMenuCreator creator = new SwipeMenuCreator() {
 
-    //operations in context menu
-    @Override
-    public boolean onContextItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
+        @Override
+        public void create(SwipeMenu menu) {
+            // create "open" item
+            SwipeMenuItem openItem = new SwipeMenuItem(
+                    getApplicationContext());
+            // set item background
+            openItem.setBackground(R.color.green);
+            // set item width
+            openItem.setWidth(120);
+            // set item icon
+            openItem.setIcon(R.drawable.ic_baseline_edit_24);
+            // add to menu
+            menu.addMenuItem(openItem);
 
-            case R.id.edit:
-
-                Intent ii = new Intent(this, MedEntry.class);
-                ii.putExtra("id", clickedMedicine.getId());
-                ii.putExtra("med", clickedMedicine.getMedication());
-                ii.putExtra("dosage", clickedMedicine.getDosage());
-                ii.putExtra("date", clickedMedicine.getDate());
-                ii.putExtra("time", clickedMedicine.getTime());
-                ii.putExtra("unit", clickedMedicine.getUnit());
-                startActivity(ii);
-
-                return true;
-
-            case R.id.delete:
-                builder=new AlertDialog.Builder(this);
-                builder.setMessage("Are you sure you want to delete?");
-                builder.setCancelable(false);
-                builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        boolean flag= db.deleteMedRecord(clickedMedicine.getEmail(),String.valueOf(clickedMedicine.getId()));
-                        if(flag) {
-                            Toast.makeText(getApplicationContext(), "Record Deleted ", Toast.LENGTH_SHORT).show();
-                            startActivity(getIntent());
-                        }
-                        else
-                            Toast.makeText(getApplicationContext(),"Deletion Unsuccessful",Toast.LENGTH_SHORT).show();
-                    }
-                });
-                builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.cancel();
-                    }
-                });
-                AlertDialog alertDialog=builder.create();
-                alertDialog.show();
-            default:
-                return false;
+            // create "delete" item
+            SwipeMenuItem deleteItem = new SwipeMenuItem(
+                    getApplicationContext());
+            // set item background
+            deleteItem.setBackground(new ColorDrawable(Color.rgb(0xF9,
+                    0x3F, 0x25)));
+            // set item width
+            deleteItem.setWidth(120);
+            // set a icon
+            deleteItem.setIcon(R.drawable.ic_baseline_delete_24);
+            // add to menu
+            menu.addMenuItem(deleteItem);
         }
-    }
+    };
+
+// set creator
 
 }
+

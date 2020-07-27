@@ -9,10 +9,6 @@ import android.database.sqlite.SQLiteException;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -75,7 +71,6 @@ public class Statistics extends AppCompatActivity {
             try {
                 SQLiteDatabase database=db.getReadableDatabase();
                 String selection=DatabaseContract.SugarTable.COL_EMAIL+" = ?";
-//                Cursor c = database.rawQuery("SELECT concentration, measured FROM sugar WHERE email = ?", new String[] {email} );
                 Cursor c = database.query(DatabaseContract.SugarTable.TABLE_NAME, null, selection, new String[] {email}, null, null, null);
                 while (c.moveToNext()) {
                     concent.add(c.getInt(1));

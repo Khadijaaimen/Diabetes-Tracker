@@ -15,6 +15,7 @@ import java.util.ArrayList;
 public class CustomSugarList extends BaseAdapter {
     private Activity context;
     ArrayList<Sugar> sugarEntries;
+    Activity activity;
 
     public CustomSugarList(Activity context,ArrayList sugarEntries)
     {

@@ -3,16 +3,11 @@ package com.example.diabetestracker;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.RadioButton;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.basgeekball.awesomevalidation.AwesomeValidation;
 import com.basgeekball.awesomevalidation.ValidationStyle;
@@ -28,7 +23,6 @@ public class Login extends AppCompatActivity {
     User user;
     DatabaseHelper dbHelper;
     private AwesomeValidation awesomeValidation;
-    CheckBox checkBox;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +30,6 @@ public class Login extends AppCompatActivity {
         setContentView(R.layout.activity_login);
         getSupportActionBar().hide();
 
-        checkBox = findViewById(R.id.c1);
         Intent i = getIntent();
         eemail = (EditText) findViewById(R.id.e1);
         epassword = (EditText) findViewById(R.id.e2);

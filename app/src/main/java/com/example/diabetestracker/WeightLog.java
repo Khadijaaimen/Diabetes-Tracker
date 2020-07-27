@@ -7,50 +7,58 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.view.ContextMenu;
+import android.util.Log;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.Button;
-import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
+
+import com.baoyz.swipemenulistview.SwipeMenu;
+import com.baoyz.swipemenulistview.SwipeMenuCreator;
+import com.baoyz.swipemenulistview.SwipeMenuItem;
+import com.baoyz.swipemenulistview.SwipeMenuListView;
 
 import java.util.ArrayList;
 
-public class WeightLog extends AppCompatActivity {
 
+public class WeightLog extends AppCompatActivity {
     ArrayList<Weight> weightEntries = new ArrayList<>();
-    ListView listView;
+    SwipeMenuListView listView;
     DatabaseHelper db;
-    Preferences utils;
     SQLiteDatabase database;
-    Activity activity;
+    Preferences utils;
+    com.github.clans.fab.FloatingActionButton fab;
     AlertDialog.Builder builder;
-    Weight clickedWeight;
+    Activity activity;
+    Weight weight;
+    String id,email;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_weight_log);
-
+        Intent i = getIntent();
         activity = this;
-        clickedWeight = new Weight();
-        db = new DatabaseHelper(this);
-        utils = new Preferences();
+        listView = findViewById(R.id.weightList);
+        weight=new Weight();
         new GetWeightData().execute();
+        utils = new Preferences();
+        db = new DatabaseHelper(this);
 
-        listView = findViewById(R.id.weight_entry);
-    }
-
-    //intent to Weight Entry activity
-    public void weightEntry(View v) {
-        Intent i = new Intent(this, WeightEntry.class);
-        startActivity(i);
+        fab=findViewById(R.id.weightFab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i2=new Intent(WeightLog.this, WeightEntry.class);
+                startActivity(i2);
+            }
+        });
     }
 
     public class GetWeightData extends AsyncTask {
@@ -68,31 +76,48 @@ public class WeightLog extends AppCompatActivity {
         protected void onPostExecute(Object o) {
             super.onPostExecute(o);
 
-            final CustomWeightList customWeightList = new CustomWeightList(activity, weightEntries);
+            CustomWeightList customWeightList = new CustomWeightList(activity, weightEntries);
             listView.setAdapter(customWeightList);
             registerForContextMenu(listView);
-            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            listView.setMenuCreator(creator);
+            listView.setOnMenuItemClickListener(new SwipeMenuListView.OnMenuItemClickListener() {
                 @Override
-                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    if (weightEntries.size() > position) {
-                        Toast.makeText(getApplicationContext(), "You Selected " + weightEntries.get(position).getWeight(), Toast.LENGTH_SHORT).show();
-                        clickedWeight.setId(weightEntries.get(position).getId());
-                        clickedWeight.setWeight(weightEntries.get(position).getWeight());
-                        clickedWeight.setDate(weightEntries.get(position).getDate());
-                        clickedWeight.setTime(weightEntries.get(position).getTime());
-                        clickedWeight.setEmail(weightEntries.get(position).getEmail());
-                    } else {
-                        Toast.makeText(getApplicationContext(), "Enter Data first ", Toast.LENGTH_SHORT).show();
+                public boolean onMenuItemClick(int position, SwipeMenu menu, int index) {
+
+                    switch (index) {
+                        case 0:
+                                Toast.makeText(getApplicationContext(), "You Selected " + weightEntries.get(position).getWeight(), Toast.LENGTH_SHORT).show();
+                                Intent i2 = new Intent(WeightLog.this, WeightEntry.class);
+                                i2.putExtra("weight", weightEntries.get(position).getWeight());
+                                i2.putExtra("date", weightEntries.get(position).getDate());
+                                i2.putExtra("time", weightEntries.get(position).getTime());
+                                i2.putExtra("id", weightEntries.get(position).getId());
+                                startActivity(i2);
+
+                            return true;
+                        case 1:
+                            id=String.valueOf(weightEntries.get(position).getId());
+                            email=weightEntries.get(position).getEmail().trim();
+                            boolean flag=db.deleteWeightRecord(email,id);
+                            if(flag)
+                            {
+                                Toast.makeText(getApplicationContext(), "Record Deleted ", Toast.LENGTH_SHORT).show();
+                                finish();
+                                startActivity(getIntent());
+                            }
+                            return true;
+                        default:
+                            return false;
                     }
                 }
 
             });
-
         }
     }
-
     protected Void getWeightEntries() {
-        String email = utils.getEmail(this);
+        String email = utils.getEmail(WeightLog.this);
+        Log.d("TAG", email);
         weightEntries = db.getWeightEntries(email);
         return null;
     }
@@ -103,23 +128,24 @@ public class WeightLog extends AppCompatActivity {
         return true;
     }
 
+    //operations in options menu
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.dlt_weight:
                 builder=new AlertDialog.Builder(this);
-                builder.setMessage("Are you sure you want to delete Weight records?");
+                builder.setMessage("Are you sure you want to delete?");
                 builder.setCancelable(false);
                 builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        try {
+                        try{
                             database = db.getReadableDatabase();
                             database.execSQL("delete from weight");
                             Toast.makeText(getApplicationContext(), "Data Deleted ", Toast.LENGTH_SHORT).show();
                             Intent intent = new Intent(WeightLog.this, Tabs.class);
-                            startActivity(intent);
-                        } catch (Exception e) {
+                            startActivity(intent);}
+                        catch (Exception e) {
                             Toast.makeText(getApplicationContext(), "Deletion unsuccessful", Toast.LENGTH_SHORT).show();
                         }
                     }
@@ -135,58 +161,42 @@ public class WeightLog extends AppCompatActivity {
                 return true;
 
             default:
-                break;
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
-    //context menu
-    @Override
-    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
-        super.onCreateContextMenu(menu, v, menuInfo);
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.context, menu);
-    }
-
-    //operations in context menu
-    @Override
-    public boolean onContextItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.edit:
-                Intent ii = new Intent(this, WeightEntry.class);
-                ii.putExtra("id", clickedWeight.getId());
-                ii.putExtra("weight", clickedWeight.getWeight());
-                ii.putExtra("date", clickedWeight.getDate());
-                ii.putExtra("time", clickedWeight.getTime());
-                startActivity(ii);
-
-                return true;
-
-            case R.id.delete:
-                builder = new AlertDialog.Builder(this);
-                builder.setMessage("Are you sure you want to delete?");
-                builder.setCancelable(false);
-                builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        boolean flag = db.deleteWeightRecord(String.valueOf(clickedWeight.getId()));
-                        if (flag)
-                            Toast.makeText(getApplicationContext(), "Record Deleted ", Toast.LENGTH_SHORT).show();
-                        else
-                            Toast.makeText(getApplicationContext(), "Deletion Unsuccessful", Toast.LENGTH_SHORT).show();
-                    }
-                });
-                builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.cancel();
-                    }
-                });
-                AlertDialog alertDialog = builder.create();
-                alertDialog.show();
-            default:
                 return false;
         }
     }
 
+    SwipeMenuCreator creator = new SwipeMenuCreator() {
+
+        @Override
+        public void create(SwipeMenu menu) {
+            // create "open" item
+            SwipeMenuItem openItem = new SwipeMenuItem(
+                    getApplicationContext());
+            // set item background
+            openItem.setBackground(R.color.green);
+            // set item width
+            openItem.setWidth(120);
+            // set item icon
+            openItem.setIcon(R.drawable.ic_baseline_edit_24);
+            // add to menu
+            menu.addMenuItem(openItem);
+
+            // create "delete" item
+            SwipeMenuItem deleteItem = new SwipeMenuItem(
+                    getApplicationContext());
+            // set item background
+            deleteItem.setBackground(new ColorDrawable(Color.rgb(0xF9,
+                    0x3F, 0x25)));
+            // set item width
+            deleteItem.setWidth(120);
+            // set a icon
+            deleteItem.setIcon(R.drawable.ic_baseline_delete_24);
+            // add to menu
+            menu.addMenuItem(deleteItem);
+        }
+    };
+
+// set creator
+
 }
+

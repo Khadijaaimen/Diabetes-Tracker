@@ -419,20 +419,23 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return weightEntries;
     }
 
-    public boolean deleteWeightRecord(String id) {
-        SQLiteDatabase db = this.getWritableDatabase();
-        String where = DatabaseContract.WeightTable._ID + " =? ";
-        String[] selectionArgs = {id};
-        Log.d("TAG", id);
-        int i = 0;
-        try {
-            i = db.delete(DatabaseContract.WeightTable.TABLE_NAME, where, selectionArgs);
-            Log.d("TAG", String.valueOf(i));
-        } catch (SQLiteException e) {
-            Log.d("TAG", e.getMessage());
+    public boolean deleteWeightRecord(String email,String id)
+    {
+        SQLiteDatabase db=this.getWritableDatabase();
+        String where=DatabaseContract.WeightTable.COL_EMAIL+" =? "+" AND "+DatabaseContract.WeightTable._ID+" =? ";
+        String[] selectionArgs={email,id};
+//        Log.d("TAG",email);
+        Log.d("TAG",id);
+        int i=0;
+        try{
+            i=db.delete(DatabaseContract.WeightTable.TABLE_NAME,where,selectionArgs);
+            Log.d("TAG",String.valueOf(i));
+        }catch(SQLiteException e)
+        {
+            Log.d("TAG",e.getMessage());
         }
 
-        if (i > 0)
+        if(i>0)
             return true;
         return false;
     }

@@ -71,17 +71,11 @@
         android:layout_height="wrap_content"
         style="@style/s2"/>
 
-    <CheckBox
-        android:id="@+id/c1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
-        android:text="Keep me logged in"
-        android:layout_below="@id/e2"/>
+
 
     <TextView
         android:id="@+id/t4"
-        android:layout_below="@id/c1"
+        android:layout_below="@id/t2"
         android:layout_marginLeft="220dp"
         android:layout_marginRight="20dp"
         android:autoLink="phone"

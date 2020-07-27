@@ -57,6 +57,7 @@
             android:paddingBottom="10dp">
 
             <TextView
+                android:textStyle="bold"
                 style="@style/s4"
                 android:layout_width="80dp"
                 android:layout_height="wrap_content"
@@ -86,6 +87,7 @@
                 android:layout_gravity="center"
                 android:textColor="#E33C4C"
                 style="@style/s4"
+                android:textStyle="bold"
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:text="After Breakfast"
@@ -107,6 +109,7 @@
             android:paddingTop="10dp"
             android:paddingBottom="10dp">
             <TextView
+                android:textStyle="bold"
                 android:padding="5dp"
                 android:gravity="center"
                 android:layout_gravity="center"
@@ -133,6 +136,7 @@
             android:paddingTop="10dp"
             android:paddingBottom="10dp">
             <TextView
+                android:textStyle="bold"
                 android:padding="5dp"
                 android:gravity="center"
                 android:layout_gravity="center"
@@ -159,6 +163,7 @@
             android:paddingTop="10dp"
             android:paddingBottom="10dp">
             <TextView
+                android:textStyle="bold"
                 android:padding="5dp"
                 android:gravity="center"
                 android:layout_gravity="center"
@@ -184,6 +189,7 @@
             android:paddingTop="10dp"
             android:paddingBottom="10dp">
             <TextView
+                android:textStyle="bold"
                 android:padding="5dp"
                 android:gravity="center"
                 android:layout_gravity="center"
@@ -211,6 +217,7 @@
             android:paddingTop="10dp"
             android:paddingBottom="10dp">
             <TextView
+                android:textStyle="bold"
                 android:padding="5dp"
                 android:gravity="center"
                 android:layout_gravity="center"
@@ -238,6 +245,7 @@
             android:paddingTop="10dp"
             android:paddingBottom="10dp">
             <TextView
+                android:textStyle="bold"
                 android:padding="5dp"
                 android:gravity="center"
                 android:layout_gravity="center"

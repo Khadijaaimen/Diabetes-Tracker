@@ -168,6 +168,15 @@ public class SugarLog extends AppCompatActivity {
                 alertDialog.show();
                 return true;
 
+            case R.id.level:
+                Intent i1 = new Intent(this, TargetLevels.class);
+                startActivity(i1);
+                return true;
+                
+            case R.id.warning:
+                Intent i2 = new Intent(this, SugarWarning.class);
+                startActivity(i2);
+                return true;
             default:
                 return false;
         }

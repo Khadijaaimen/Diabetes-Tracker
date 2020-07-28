@@ -18,14 +18,13 @@
 
     <com.baoyz.swipemenulistview.SwipeMenuListView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="370dp"
         android:layout_centerInParent="true"
         android:layout_margin="20dp"
         android:id="@+id/sugarList"></com.baoyz.swipemenulistview.SwipeMenuListView>
 
     <com.github.clans.fab.FloatingActionButton
-        android:layout_marginTop="130dp"
-        android:layout_marginRight="20dp"
+        android:layout_marginRight="16dp"
         android:id="@+id/sugarfab"
         android:layout_gravity="bottom|end"
         android:layout_width="wrap_content"

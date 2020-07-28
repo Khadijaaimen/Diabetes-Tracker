@@ -24,7 +24,7 @@
         android:id="@+id/weightList"></com.baoyz.swipemenulistview.SwipeMenuListView>
 
     <com.github.clans.fab.FloatingActionButton
-        android:layout_marginTop="350dp"
+        android:layout_marginTop="300dp"
         android:layout_marginRight="20dp"
         android:id="@+id/weightFab"
         android:layout_gravity="bottom|end"

@@ -60,8 +60,6 @@ public class CustomSugarList extends BaseAdapter {
             return row;
         }
         else {
-            Toast toast = Toast.makeText(context, "No record available, enter data.", Toast.LENGTH_SHORT);
-            toast.show();
             return row;
         }
     }

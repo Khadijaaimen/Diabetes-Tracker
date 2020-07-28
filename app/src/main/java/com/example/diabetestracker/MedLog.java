@@ -82,9 +82,9 @@ public class MedLog extends AppCompatActivity {
                 @Override
                 public boolean onMenuItemClick(int position, SwipeMenu menu, int index) {
 
-                    switch (index) {
-                        case 0:
-                            if(medEntries.size() > position) {
+                    if (medEntries.size() > position) {
+                        switch (index) {
+                            case 0:
                                 Toast.makeText(getApplicationContext(), "You Selected " + medEntries.get(position).getMedication(), Toast.LENGTH_SHORT).show();
                                 Intent i2 = new Intent(MedLog.this, MedEntry.class);
                                 i2.putExtra("med", medEntries.get(position).getMedication());
@@ -94,30 +94,31 @@ public class MedLog extends AppCompatActivity {
                                 i2.putExtra("time", medEntries.get(position).getTime());
                                 i2.putExtra("id", medEntries.get(position).getId());
                                 startActivity(i2);
-                            }
-                            else{
-                                Toast.makeText(getApplicationContext(), "Enter Any Data", Toast.LENGTH_SHORT).show();
-                            }
-                            return true;
-                        case 1:
-                            id=String.valueOf(medEntries.get(position).getId());
-                            email=medEntries.get(position).getEmail().trim();
-                            boolean flag=db.deleteMedRecord(email,id);
-                            if(flag)
-                            {
-                                Toast.makeText(getApplicationContext(), "Record Deleted ", Toast.LENGTH_SHORT).show();
-                                finish();
-                                startActivity(getIntent());
-                            }
-                            return true;
-                        default:
-                            return false;
+                                return true;
+                            case 1:
+                                id = String.valueOf(medEntries.get(position).getId());
+                                email = medEntries.get(position).getEmail().trim();
+                                boolean flag = db.deleteMedRecord(email, id);
+                                if (flag) {
+                                    Toast.makeText(getApplicationContext(), "Record Deleted ", Toast.LENGTH_SHORT).show();
+                                    finish();
+                                    startActivity(getIntent());
+                                }
+                                return true;
+                            default:
+                                return false;
+
+                        }
+                    }
+                    else {
+                        Toast.makeText(getApplicationContext(), "Can't edit or delete empty record.", Toast.LENGTH_SHORT).show();
+                        return false;
                     }
                 }
-
             });
         }
     }
+
     protected Void getMedEntries() {
         String email = utils.getEmail(MedLog.this);
         Log.d("TAG", email);

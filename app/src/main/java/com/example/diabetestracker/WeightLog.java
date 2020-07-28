@@ -84,9 +84,9 @@ public class WeightLog extends AppCompatActivity {
             listView.setOnMenuItemClickListener(new SwipeMenuListView.OnMenuItemClickListener() {
                 @Override
                 public boolean onMenuItemClick(int position, SwipeMenu menu, int index) {
-
-                    switch (index) {
-                        case 0:
+                    if (weightEntries.size() > position) {
+                        switch (index) {
+                            case 0:
                                 Toast.makeText(getApplicationContext(), "You Selected " + weightEntries.get(position).getWeight(), Toast.LENGTH_SHORT).show();
                                 Intent i2 = new Intent(WeightLog.this, WeightEntry.class);
                                 i2.putExtra("weight", weightEntries.get(position).getWeight());
@@ -95,20 +95,24 @@ public class WeightLog extends AppCompatActivity {
                                 i2.putExtra("id", weightEntries.get(position).getId());
                                 startActivity(i2);
 
-                            return true;
-                        case 1:
-                            id=String.valueOf(weightEntries.get(position).getId());
-                            email=weightEntries.get(position).getEmail().trim();
-                            boolean flag=db.deleteWeightRecord(email,id);
-                            if(flag)
-                            {
-                                Toast.makeText(getApplicationContext(), "Record Deleted ", Toast.LENGTH_SHORT).show();
-                                finish();
-                                startActivity(getIntent());
-                            }
-                            return true;
-                        default:
-                            return false;
+                                return true;
+                            case 1:
+                                id = String.valueOf(weightEntries.get(position).getId());
+                                email = weightEntries.get(position).getEmail().trim();
+                                boolean flag = db.deleteWeightRecord(email, id);
+                                if (flag) {
+                                    Toast.makeText(getApplicationContext(), "Record Deleted ", Toast.LENGTH_SHORT).show();
+                                    finish();
+                                    startActivity(getIntent());
+                                }
+                                return true;
+                            default:
+                                return false;
+                        }
+                    }
+                    else {
+                        Toast.makeText(getApplicationContext(), "Can't edit or delete empty record.", Toast.LENGTH_SHORT).show();
+                        return false;
                     }
                 }
 

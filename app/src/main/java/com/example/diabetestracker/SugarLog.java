@@ -84,35 +84,39 @@ public class SugarLog extends AppCompatActivity {
                 @Override
                 public boolean onMenuItemClick(int position, SwipeMenu menu, int index) {
 
-                    switch (index) {
-                        case 0:
-                            if(sugarEntries.size() > position) {
-                                Toast.makeText(getApplicationContext(), "You Selected " + sugarEntries.get(position).getConcentration(), Toast.LENGTH_SHORT).show();
-                                Intent i2 = new Intent(SugarLog.this, SugarEntry.class);
-                                i2.putExtra("conc", sugarEntries.get(position).getConcentration());
-                                i2.putExtra("measured", sugarEntries.get(position).getMeasured());
-                                i2.putExtra("date", sugarEntries.get(position).getDate());
-                                i2.putExtra("time", sugarEntries.get(position).getTime());
-                                i2.putExtra("id", sugarEntries.get(position).getId());
-                                startActivity(i2);
-                            }
-                            else{
-                                Toast.makeText(getApplicationContext(), "Enter Any Data", Toast.LENGTH_SHORT).show();
-                            }
-                            return true;
-                        case 1:
-                            id=String.valueOf(sugarEntries.get(position).getId());
-                            email=sugarEntries.get(position).getEmail().trim();
-                            boolean flag=db.deleteSugarRecord(email,id);
-                            if(flag)
-                            {
-                                Toast.makeText(getApplicationContext(), "Record Deleted ", Toast.LENGTH_SHORT).show();
-                                finish();
-                                startActivity(getIntent());
-                            }
-                            return true;
-                        default:
-                            return false;
+                    if (sugarEntries.size() > position) {
+                        switch (index) {
+                            case 0:
+                                if (sugarEntries.size() > position) {
+                                    Toast.makeText(getApplicationContext(), "You Selected " + sugarEntries.get(position).getConcentration(), Toast.LENGTH_SHORT).show();
+                                    Intent i2 = new Intent(SugarLog.this, SugarEntry.class);
+                                    i2.putExtra("conc", sugarEntries.get(position).getConcentration());
+                                    i2.putExtra("measured", sugarEntries.get(position).getMeasured());
+                                    i2.putExtra("date", sugarEntries.get(position).getDate());
+                                    i2.putExtra("time", sugarEntries.get(position).getTime());
+                                    i2.putExtra("id", sugarEntries.get(position).getId());
+                                    startActivity(i2);
+                                } else {
+                                    Toast.makeText(getApplicationContext(), "Enter Any Data", Toast.LENGTH_SHORT).show();
+                                }
+                                return true;
+                            case 1:
+                                id = String.valueOf(sugarEntries.get(position).getId());
+                                email = sugarEntries.get(position).getEmail().trim();
+                                boolean flag = db.deleteSugarRecord(email, id);
+                                if (flag) {
+                                    Toast.makeText(getApplicationContext(), "Record Deleted ", Toast.LENGTH_SHORT).show();
+                                    finish();
+                                    startActivity(getIntent());
+                                }
+                                return true;
+                            default:
+                                return false;
+                        }
+                    }
+                    else {
+                        Toast.makeText(getApplicationContext(), "Can't edit or delete empty record.", Toast.LENGTH_SHORT).show();
+                        return false;
                     }
                 }
 

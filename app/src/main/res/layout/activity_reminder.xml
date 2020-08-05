@@ -7,7 +7,7 @@
     android:background="@drawable/bg"
     android:padding="20dp"
     android:orientation="vertical"
-    tools:context=".Reminder">
+    tools:context=".activity.Reminder">
 
     <ImageView
         android:layout_marginBottom="20dp"
@@ -49,14 +49,17 @@
             android:layout_height="wrap_content"
             android:text="Set time " />
 
-        <TimePicker
-            android:id="@+id/Time"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="20dp"
-            android:timePickerMode="clock"></TimePicker>
+    <EditText
+        android:hint="Pick time"
+        style="@style/s6"
+        android:layout_width="315dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:id="@+id/time"
+        android:onClick="pickTime"></EditText>
 
     <Button
+        android:layout_marginTop="10dp"
         android:onClick="setAlarm"
         android:id="@+id/alarm"
         android:layout_width="match_parent"

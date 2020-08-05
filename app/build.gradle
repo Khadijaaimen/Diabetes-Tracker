@@ -23,11 +23,6 @@ android {
 }
 
 dependencies {
-    implementation 'com.google.android.gms:play-services-games:19.0.0'
-    implementation 'com.google.android.gms:play-services-location:15.0.1'
-    implementation 'com.github.barteksc:android-pdf-viewer:2.0.3'
-    implementation 'com.basgeekball:awesome-validation:1.3'
-    implementation 'com.github.clans:fab:1.6.4'
     implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation 'androidx.appcompat:appcompat:1.1.0'
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
@@ -37,5 +32,14 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
-    compile 'com.baoyz.swipemenulistview:library:1.3.0'
+    //floating button dependency
+    implementation 'com.github.clans:fab:1.6.4'
+    //awesome validation dependency
+    implementation 'com.basgeekball:awesome-validation:1.3'
+    //swipemenu list view dependency
+    implementation 'com.baoyz.swipemenulistview:library:1.3.0'
+    //play services for map and location dependency
+    implementation 'com.google.android.gms:play-services-games:19.0.0'
+    implementation 'com.google.android.gms:play-services-maps:17.0.0'
+    implementation 'com.google.android.gms:play-services-location:17.0.0'
 }

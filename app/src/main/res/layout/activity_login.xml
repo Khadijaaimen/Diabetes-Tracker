@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:fillViewport="true"
     android:stackFromBottom="true"
-    tools:context=".Login"
+    tools:context=".activity.Login"
     android:transcriptMode="alwaysScroll" >
 
 <RelativeLayout
@@ -62,20 +62,20 @@
         android:layout_height="wrap_content"/>
 
     <EditText
-        android:inputType="textPassword"
         android:layout_marginLeft="20dp"
         android:id="@+id/e2"
-        android:layout_below="@id/t2"
-        android:hint="Enter Password"
+        style="@style/s2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        style="@style/s2"/>
+        android:layout_below="@id/t2"
+        android:hint="Enter Password"
+        android:inputType="textPassword" />
 
 
 
     <TextView
         android:id="@+id/t4"
-        android:layout_below="@id/t2"
+        android:layout_below="@id/e2"
         android:layout_marginLeft="220dp"
         android:layout_marginRight="20dp"
         android:autoLink="phone"
@@ -86,26 +86,25 @@
         android:text="Forgot Password?"/>
 
     <Button
-        android:onClick="submit"
         android:id="@+id/button"
-        android:layout_below="@id/t4"
+        style="@style/s3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Login"
-        style="@style/s3"
-        />
+        android:layout_below="@id/t4"
+        android:onClick="submit"
+        android:text="Login" />
 
     <TextView
         android:layout_centerHorizontal="true"
         android:layout_below="@id/button"
-        android:textSize="15dp"
         android:id="@+id/tv"
         android:onClick="account2"
+        android:textSize="15dp"
+        android:textColor="#F6C67E"
+        android:layout_gravity="center"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        style="@style/s2"
         android:text="No account yet? Click here."
-        android:layout_gravity="center"
         tools:ignore="OnClick" />
 
 </RelativeLayout>

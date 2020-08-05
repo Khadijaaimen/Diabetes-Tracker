@@ -3,6 +3,11 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     >
     <item android:title=""
+        android:id="@+id/pharm"
+        android:icon="@drawable/ic_launcher_pharmacy_foreground"
+        app:showAsAction="always" />
+
+    <item android:title=""
         android:id="@+id/dlt_med"
         android:icon="@drawable/ic_baseline_delete_24"
         app:showAsAction="always" />

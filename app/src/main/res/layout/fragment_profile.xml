@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@drawable/bg"
-    tools:context=".ProfileFragment">
+    tools:context=".fragment.ProfileFragment">
 
     <ImageView
         android:layout_marginTop="20dp"

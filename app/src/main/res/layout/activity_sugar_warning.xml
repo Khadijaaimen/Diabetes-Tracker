@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:fillViewport="true"
     android:stackFromBottom="true"
-    tools:context=".SugarWarning"
+    tools:context=".activity.SugarWarning"
     android:transcriptMode="alwaysScroll">
 <LinearLayout
     android:layout_width="match_parent"

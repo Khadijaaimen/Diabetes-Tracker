@@ -7,13 +7,13 @@
     android:layout_height="match_parent"
     android:fillViewport="true"
     android:stackFromBottom="true"
-    tools:context=".Signup"
+    tools:context=".activity.Signup"
     android:transcriptMode="alwaysScroll" >
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".Signup"
+        tools:context=".activity.Signup"
         android:orientation="vertical"
         android:scrollbars="vertical"
         android:background="@drawable/bg2">

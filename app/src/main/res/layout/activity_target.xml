@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:fillViewport="true"
     android:stackFromBottom="true"
-    tools:context=".TargetLevels">
+    tools:context=".activity.TargetLevels">
 
     <LinearLayout
         android:paddingBottom="20dp"

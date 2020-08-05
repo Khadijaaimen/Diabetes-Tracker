@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@drawable/bg"
-    tools:context=".WeightLog">
+    tools:context=".activity.WeightLog">
 
     <ImageView
         android:layout_marginTop="20dp"
@@ -20,7 +20,7 @@
         android:layout_width="match_parent"
         android:layout_height="425dp"
         android:layout_centerInParent="true"
-        android:layout_margin="10dp"
+        android:layout_margin="20dp"
         android:id="@+id/weightList"></com.baoyz.swipemenulistview.SwipeMenuListView>
 
     <com.github.clans.fab.FloatingActionButton

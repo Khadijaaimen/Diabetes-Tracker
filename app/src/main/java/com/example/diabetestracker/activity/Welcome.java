@@ -29,14 +29,11 @@ public class Welcome extends AppCompatActivity {
     }
 
     public void login(View v){
-//        checkBox = findViewById(R.id.c1);
-//        if(checkBox.isChecked()) {
             if (Preferences.getEmail(this) != null && !Preferences.getEmail(this).equals("")) {
                 Intent i3 = new Intent(this, Tabs.class);
                 startActivity(i3);
                 finish();
             }
-//        }
         else {
             Intent i = new Intent(Welcome.this, Login.class);
             startActivity(i);

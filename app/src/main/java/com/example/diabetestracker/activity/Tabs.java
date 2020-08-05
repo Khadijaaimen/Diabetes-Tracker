@@ -52,6 +52,10 @@ public class Tabs extends AppCompatActivity {
         user=new User();
         getUserDetails();
 
+        //back button
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+
         ViewPager viewPager = findViewById(R.id.view_pager);
         setupViewPage(viewPager);
 
@@ -89,6 +93,15 @@ public class Tabs extends AppCompatActivity {
         });
 
     }
+
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        startActivity(new Intent(this, Welcome.class));
+        finish();
+    }
+
     //take details for profile page
     private void getUserDetails()
     {
@@ -106,10 +119,14 @@ public class Tabs extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
+            case android.R.id.home:
+                onBackPressed();
+                return true;
+
             case R.id.reminder:
                 Intent i = new Intent(this, Reminder.class);
                 startActivity(i);
-                break;
+                return true;
 
             case R.id.dlt:
                 builder=new AlertDialog.Builder(this);
@@ -147,10 +164,11 @@ public class Tabs extends AppCompatActivity {
                     Intent i2=new Intent(this, Welcome.class);
                     startActivity(i2);
                 }
+                return true;
+
             default:
-                break;
+                return false;
         }
-        return super.onOptionsItemSelected(item);
     }
 
     private void setupViewPage(ViewPager viewPager){

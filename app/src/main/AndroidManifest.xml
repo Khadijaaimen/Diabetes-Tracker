@@ -21,37 +21,52 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
 
-        <activity android:name=".activity.Reminder" />
-        <activity android:name=".activity.Statistics" />
+        <activity android:name=".activity.Reminder"
+            android:label="Reminder"/>
+        <activity android:name=".activity.Statistics"
+            android:label="Statistics"/>
         <activity
             android:name=".activity.WeightLog"
             android:noHistory="true"
+            android:label="Weight Log"
           />
         <activity
             android:name=".activity.MedLog"
             android:noHistory="true"
-           />
-        <activity android:name=".activity.SugarWarning" />
-        <activity android:name=".activity.TargetLevels" />
+            android:label="Medication Log"
+
+            />
+        <activity android:name=".activity.SugarWarning"
+            android:label="Sugar Warning"
+            />
+        <activity android:name=".activity.TargetLevels"
+            android:label="Target Levels"/>
         <activity
             android:name=".activity.SugarLog"
+            android:label="Sugar Log"
             android:noHistory="true"/>
         <activity
             android:name=".activity.MedEntry"
+            android:label="Medication Entry"
             android:noHistory="true"/>
         <activity
             android:name=".activity.WeightEntry"
+            android:label="Weight Entry"
             android:noHistory="true"
            />
-        <activity android:name=".activity.Welcome" />
+        <activity android:name=".activity.Welcome"
+            android:label="Welcome"/>
         <activity
             android:name=".activity.Login"
+            android:label="Login"
             android:noHistory="true"/>
         <activity
             android:name=".activity.SugarEntry"
+            android:label="Sugar Entry"
             android:noHistory="true"/>
         <activity
             android:name=".activity.EditProfile"
+            android:label="Edit Profile"
              />
         <activity
             android:name=".activity.Tabs"

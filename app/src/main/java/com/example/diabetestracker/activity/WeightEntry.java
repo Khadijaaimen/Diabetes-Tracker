@@ -249,7 +249,7 @@ public class WeightEntry extends AppCompatActivity {
     }
     private void updateWeight()
     {
-        eweight.setText(String.valueOf(i.getDoubleExtra("weight",0)));
+        eweight.setText(String.valueOf(i.getIntExtra("weight",0)));
         edate.setText(i.getStringExtra("date"));
         etime.setText(i.getStringExtra("time"));
     }

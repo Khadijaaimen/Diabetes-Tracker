@@ -7,6 +7,8 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.InputType;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -48,6 +50,11 @@ public class EditProfile extends AppCompatActivity {
         findViews();
         setViews();
         dbHelper=new DatabaseHelper(this);
+
+        //back button
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+
         utils=new Preferences();
         if (Build.VERSION.SDK_INT >= 11) {
             dob.setRawInputType(InputType.TYPE_CLASS_TEXT);
@@ -57,6 +64,21 @@ public class EditProfile extends AppCompatActivity {
             dob.setFocusable(true);
         }
     }
+
+    //options menu
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.back_menu, menu);
+        return true;
+    }
+    //back button Onclick
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            finish();
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
     //find editTexts
     private void findViews()
     {
